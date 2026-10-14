@@ -27,5 +27,5 @@ def is_basics_full():
 	hay_demand = get_demand_ratio(Items.Hay)
 	wood_demand = get_demand_ratio(Items.Wood)
 	carrot_demand = get_demand_ratio(Items.Carrot)
-	average_demand = hay_demand * wood_demand * carrot_demand
-	return average_demand > 0.7
+	average_demand = hay_demand + wood_demand + carrot_demand
+	return average_demand == 0

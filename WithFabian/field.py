@@ -1,5 +1,3 @@
-import warehouse
-
 field_can_harvest = []
 
 # pumpkin_field_size = get_world_size()
@@ -54,53 +52,6 @@ def planungsmuster_wood(col, row):
 	if nr % 2 == 0:
 		field_tyoe = Entities.Tree
 
-def planungsmuster_all_pumpkin():
-	field_list = []
-	for x in range(get_world_size()):
-		for y in range(get_world_size()):
-			field_list.append(Entities.Pumpkin)
-	return field_list
-
-def planungsmuster_pumpkin(col, row):
-	if ( col < pumpkin_field_size and row < pumpkin_field_size ):
-		return Entities.Pumpkin
-	nr = get_field_index()
-	if nr % 2 == 0:
-		return Entities.Tree
-	if col <= 5:
-		return Entities.Carrot
-	else:
-		return Entities.Grass
-										
-def planungsmuster_basic_flex_demands():
-	n_fields = get_n_fields()
-	wood_demand = warehouse.get_demand_ratio(Items.Wood)
-	n_fields_tree = n_fields / 2 * wood_demand
-	carrot_demand = warehouse.get_demand_ratio(Items.Carrot)
-	n_fields_carrot = n_fields - n_fields_tree
-	field_list = []
-	for x in range(get_world_size()):
-		for y in range(get_world_size()):
-			field_appended = False
-			nr = y + ( y * get_world_size() )
-			nr = nr + ( x % 2 )
-			if nr % 2 == 0:
-				if n_fields_tree > 0:
-					n_fields_tree -= 1
-					field_list.append(Entities.Tree)
-					field_appended = True
-				else:
-					n_fields_carrot += 1
-			if not field_appended and n_fields_carrot > 0:
-				n_fields_carrot -= 1
-				field_list.append(Entities.Carrot)
-				field_appended = True
-			if not field_appended:
-				field_list.append(Entities.Grass)
-
-	return field_list
-				
-
 def get_type(col, row, demand):
 	field_type = Entities.Grass
 	nr = col * row
@@ -114,7 +65,8 @@ def build_pumpkin():
 	if get_ground_type() == Grounds.Grassland:
 		till()
 	plant(Entities.Pumpkin)
-	
+	field_can_harvest[_get_list_index(get_pos_x(), get_pos_y())] = False
+
 def build_tree():
 	if get_ground_type() == Grounds.Soil:
 		till()
