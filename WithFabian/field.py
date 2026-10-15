@@ -1,4 +1,5 @@
 field_can_harvest = []
+pumpkin_path_forward = True
 
 # pumpkin_field_size = get_world_size()
 pumpkin_field_size = 7
@@ -30,21 +31,42 @@ def get_n_not_harvest():
 			n += 1
 	return n
 
+def check_fiels_limits(list_iterator):
+	global pumpkin_path_forward
+	n_fields = get_n_fields()
+	if list_iterator < 0:
+		list_iterator = 1
+		pumpkin_path_forward = True
+	if list_iterator > n_fields:
+		list_iterator = n_fields - 1
+		pumpkin_path_forward = False
+	return list_iterator
+
 def get_next_not_harvest():
 	global field_can_harvest
+	global pumpkin_path_forward
 	my_x = get_pos_x()
 	my_y = get_pos_y()
 	my_list_index = _get_list_index(my_x, my_y)
+	n_fields = get_n_fields()
 	# my_harvest_status = field_can_harvest[my_list_index]
 	# if my_harvest_status == False:
 	# 	return my_x, my_y
 	# else:
-	list_iterator = my_list_index + 1
-	n_fields = get_n_fields()
-	while list_iterator < n_fields:
+	if pumpkin_path_forward:
+		list_iterator = my_list_index + 1
+	else:
+		list_iterator = my_list_index - 1
+	list_iterator = check_fiels_limits(list_iterator)
+		
+	while list_iterator < n_fields and list_iterator >= 0:
 		if field_can_harvest[list_iterator] != True:
 			return get_coordinates(list_iterator)
-		list_iterator += 1
+		if pumpkin_path_forward:
+			list_iterator += 1
+		else:
+			list_iterator -= 1
+		list_iterator = check_fiels_limits(list_iterator)
 	return 0,0
 
 def update_status_can_harvest(status_can_harvest):
