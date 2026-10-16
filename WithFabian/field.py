@@ -1,19 +1,18 @@
 field_can_harvest = []
+field_measure = []
+
 pumpkin_path_forward = True
 
 # pumpkin_field_size = get_world_size()
 pumpkin_field_size = 7
+
+# --- General Calculations
 
 def get_n_fields():
 	return get_world_size() * get_world_size()
 
 def is_start_position():
 	return get_pos_x() == 0 and get_pos_y() == 0
-
-def init():
-	n_fields = get_n_fields()
-	for x in range(n_fields):
-			field_can_harvest.append(None)
 
 def _get_list_index(x, y):
 	return y + (x * get_world_size())
@@ -23,14 +22,11 @@ def get_coordinates(list_index):
 	y = list_index % get_world_size()
 	return x, y
 
-def get_n_not_harvest():
-	global field_can_harvest
-	n = 0
-	for i in range(get_n_fields()):
-		if field_can_harvest[i] != True:
-			n += 1
-	return n
-
+def get_my_list_index():
+	nr = get_pos_y() + ( get_pos_y() * get_world_size() )
+	nr = nr + ( get_pos_x() % 2 )
+	return nr
+	
 def check_fiels_limits(list_iterator):
 	global pumpkin_path_forward
 	n_fields = get_n_fields()
@@ -42,6 +38,27 @@ def check_fiels_limits(list_iterator):
 		pumpkin_path_forward = False
 	return list_iterator
 
+# --- Field Memory 
+
+def init():
+	n_fields = get_n_fields()
+	for x in range(n_fields):
+		field_can_harvest.append(False)
+		field_measure.append(0)
+
+# --- Harvest
+
+def update_status_can_harvest(status_can_harvest):
+	field_can_harvest[_get_list_index(get_pos_x(), get_pos_y())] = status_can_harvest
+	
+def get_n_not_harvest():
+	global field_can_harvest
+	n = 0
+	for i in range(get_n_fields()):
+		if field_can_harvest[i] != True:
+			n += 1
+	return n
+
 def get_next_not_harvest():
 	global field_can_harvest
 	global pumpkin_path_forward
@@ -49,16 +66,11 @@ def get_next_not_harvest():
 	my_y = get_pos_y()
 	my_list_index = _get_list_index(my_x, my_y)
 	n_fields = get_n_fields()
-	# my_harvest_status = field_can_harvest[my_list_index]
-	# if my_harvest_status == False:
-	# 	return my_x, my_y
-	# else:
 	if pumpkin_path_forward:
 		list_iterator = my_list_index + 1
 	else:
 		list_iterator = my_list_index - 1
 	list_iterator = check_fiels_limits(list_iterator)
-		
 	while list_iterator < n_fields and list_iterator >= 0:
 		if field_can_harvest[list_iterator] != True:
 			return get_coordinates(list_iterator)
@@ -69,9 +81,29 @@ def get_next_not_harvest():
 		list_iterator = check_fiels_limits(list_iterator)
 	return 0,0
 
-def update_status_can_harvest(status_can_harvest):
-	field_can_harvest[_get_list_index(get_pos_x(), get_pos_y())] = status_can_harvest
+# --- Measure
+
+def update_my_measure():
+	field_measure[_get_list_index(get_pos_x(), get_pos_y())] = measure()
 	
+def get_coordinates_best_sunflower():
+	global field_measure
+	my_x = get_pos_x()
+	my_y = get_pos_y()
+	my_list_index = _get_list_index(my_x, my_y)
+	n_fields = get_n_fields()
+	max_measure_value = 0
+	max_measure_index = 0
+	for list_index in range(n_fields):
+		if field_measure[list_index] != None and max_measure_value < field_measure[list_index]:
+			max_measure_value = field_measure[list_index]
+			max_measure_index = list_index
+	field_measure[max_measure_index] = None
+	return get_coordinates(max_measure_index)
+	
+
+# --- Pumpkin
+
 def is_sector_ready(x, x_, y, y_):
 	for ix in range(x_-x):
 		for iy in range(y_-y):
@@ -93,11 +125,8 @@ def is_ready(col, row, planungsmuster):
 	if planungsmuster == Entities.Pumpkin:
 		return check_harvest_pumpkin(col, row)
 
-def get_field_index():
-	nr = get_pos_y() + ( get_pos_y() * get_world_size() )
-	nr = nr + ( get_pos_x() % 2 )
-	return nr
-	
+# --- Unused Layouts
+
 def planungsmuster_wood(col, row):
 	field_type = Entities.Grass
 	nr = col * row
@@ -109,6 +138,8 @@ def get_type(col, row, demand):
 	nr = col * row
 	if nr % 2 == 0:
 		field_tyoe = Entities.Tree
+
+# --- Field Builds
 
 def clear_field():
 	clear()
@@ -135,6 +166,11 @@ def build_grass():
 	if get_ground_type() == Grounds.Soil:
 		till()
 
+def build_sunflower():
+	if get_ground_type() == Grounds.Grassland:
+		till()
+	plant(Entities.Sunflower)
+
 def build_field(target_field):
 	if target_field == Entities.Pumpkin:
 		build_pumpkin()
@@ -144,5 +180,7 @@ def build_field(target_field):
 		build_carrot()
 	elif target_field == Entities.Grass:
 		build_grass()
+	elif target_field == Entities.Sunflower:
+		build_sunflower()
 
 																				

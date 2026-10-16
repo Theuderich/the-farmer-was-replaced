@@ -4,7 +4,7 @@ import layout_planner
 
 HARVEST_SIMPLE = 0
 HARVEST_ALL_PUMPKINS = 1
-
+HARVEST_SUNFLOWER = 2
 
 active_demand = None
 field_layout_in_progress = False
@@ -12,8 +12,14 @@ schedule_harvest_type = HARVEST_SIMPLE
 field_layout = []
 pumpkin_field_status = False
 
-# field.clear_field()
+field.clear_field()
 field.init()
+def move_to_start():
+	my_x = get_pos_x()
+	print(my_x)
+	my_y = get_pos_y()
+	print(my_y)
+	move_n( my_x, my_y )
 
 def move_n(nx, ny):
 	x_dir = West
@@ -40,6 +46,33 @@ def move_n(nx, ny):
 		move(x_dir)
 	for iy in range(ny):
 		move(y_dir)
+
+
+def do_harvest_sunflower_mix(loops):
+	global field_layout_in_progress
+	for cycle in range(loops):
+		for col in range(get_world_size()):
+			for row in range(get_world_size()):
+				field.update_status_can_harvest(can_harvest())
+				field.update_my_measure()
+				field_entity = get_entity_type()
+				if field_entity != Entities.Sunflower:
+					harvest()
+					field.build_field(field_entity)
+				move(North)	
+			move(East)
+
+		for field_nr in range(field.get_n_fields()/2):
+			my_x = get_pos_x()
+			my_y = get_pos_y()
+			x,y = field.get_coordinates_best_sunflower()
+			move_n(my_x - x, my_y - y)
+			harvest()
+			field.build_field(field_entity)
+			field_layout_in_progress = False
+		move_to_start()
+	return
+	
 
 
 def do_harvest():
@@ -96,6 +129,10 @@ def schedule():
 			field_layout = layout_planner.layout_all_pumpkin()
 			field_layout_in_progress = True
 			schedule_harvest_type = HARVEST_ALL_PUMPKINS
+		elif warehouse.is_energy_available(): 
+			field_layout = layout_planner.layout_sunflower()
+			field_layout_in_progress = True
+			schedule_harvest_type = HARVEST_SUNFLOWER
 		else:
 			field_layout = layout_planner.layout_basic_flex_demands()
 			schedule_harvest_type = HARVEST_SIMPLE
@@ -112,16 +149,32 @@ def apply_layout(field_layout):
 			move(North)	
 		move(East)
 
+def fertalize():
+	for col in range(get_world_size()):
+		for row in range(get_world_size()):
+			use_item(Items.Fertilizer)
+			move(North)	
+		move(East)
 
 while True:
 	
 	demand = warehouse.get_demand()
 	active_demand = Entities.Pumpkin
 
+	# apply_layout(layout_planner.layout_wierd_substance())
+	# fertalize()
+	# do_harvest()
+	
 	field_layout = schedule()
 	apply_layout(field_layout)
-	# schedule_harvest_type = HARVEST_ALL_PUMPKINS
+	# schedule_harvest_type = HAVEST_ALL_PUMPKINS
 	if schedule_harvest_type == HARVEST_SIMPLE:
 		do_harvest()
 	elif schedule_harvest_type == HARVEST_ALL_PUMPKINS:
 		do_harvest_pumpkins()
+	elif schedule_harvest_type == HARVEST_SUNFLOWER:
+		do_harvest_sunflower_mix(3)
+
+	# field_layout = layout_planner.layout_sunflower()
+	# apply_layout(field_layout)
+	# do_harvest_sunflower_mix(3)
