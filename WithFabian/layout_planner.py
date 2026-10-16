@@ -35,6 +35,13 @@ def layout_wierd_substance():
 	return field_list
 
 	
+def layout_cactus():
+	n_fields = field.get_n_fields()
+	field_list = []
+	for i in range(n_fields):
+		field_list.append(Entities.Cactus)
+	return field_list
+
 def layout_basic_flex_demands():
 	n_fields = field.get_n_fields()
 	wood_demand = warehouse.get_demand_ratio(Items.Wood)
