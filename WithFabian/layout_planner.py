@@ -24,13 +24,30 @@ def layout_pumpkin_sizeable(pumpkin_size):
 					field_list.append(Entities.Grass)
 	return field_list
 
+def layout_wierd_substance():
+	n_fields = field.get_n_fields()
+	field_list = []
+	for i in range(n_fields):
+		field_type = Entities.Grass
+		if i % 2 == 0:
+			field_tyoe = Entities.Tree
+		field_list.append(field_type)
+	return field_list
+
 	
 def layout_basic_flex_demands():
 	n_fields = field.get_n_fields()
 	wood_demand = warehouse.get_demand_ratio(Items.Wood)
-	n_fields_tree = n_fields / 2 * wood_demand
 	carrot_demand = warehouse.get_demand_ratio(Items.Carrot)
-	n_fields_carrot = n_fields - n_fields_tree
+	hay_demand = warehouse.get_demand_ratio(Items.Hay)
+
+	n_fields_tree = n_fields / 2 * wood_demand
+	n_fields_carrot = 0
+	if hay_demand == 0:
+		n_fields_carrot = n_fields / 2
+	else:
+		n_fields_carrot = n_fields/2 * carrot_demand / hay_demand
+
 	field_list = []
 	for x in range(get_world_size()):
 		for y in range(get_world_size()):
@@ -43,7 +60,7 @@ def layout_basic_flex_demands():
 					field_list.append(Entities.Tree)
 					field_appended = True
 				else:
-					n_fields_carrot += 1
+					field_list.append(Entities.Grass)
 			if not field_appended and n_fields_carrot > 0:
 				n_fields_carrot -= 1
 				field_list.append(Entities.Carrot)

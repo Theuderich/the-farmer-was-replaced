@@ -1,5 +1,5 @@
 
-warehouse_targets = {Items.Hay:10000, Items.Wood:10000, Items.Carrot:3000, Items.Pumpkin:10000}
+warehouse_targets = {Items.Hay:20000, Items.Wood:10000, Items.Carrot:3000, Items.Pumpkin:10000, Items.Power:500}
 
 def get_demand():
 	demand = [Entities.Pumpkin]
@@ -16,7 +16,6 @@ def get_demand():
 	else:
 		demand.append(Items.Pumpkin)
 
-
 def get_demand_ratio(item):
 	item_num = num_items(item)
 	if item_num > warehouse_targets[item]:
@@ -29,3 +28,6 @@ def is_basics_full():
 	carrot_demand = get_demand_ratio(Items.Carrot)
 	average_demand = hay_demand + wood_demand + carrot_demand
 	return average_demand == 0
+
+def is_energy_available():
+	return get_demand_ratio(Items.Power) > warehouse_targets[Items.Power]
