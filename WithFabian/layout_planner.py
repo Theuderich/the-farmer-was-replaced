@@ -15,7 +15,7 @@ def layout_pumpkin_sizeable(pumpkin_size):
 			if ( col < pumpkin_size and row < pumpkin_size ):
 				field_list.append(Entities.Pumpkin)
 			else:
-				nr = field.get_field_index()
+				nr = field.get_my_list_index()
 				if nr % 2 == 0:
 					field_list.append(Entities.Tree)
 				if col <= get_world_size() / 2:
@@ -50,6 +50,20 @@ def layout_basic_flex_demands():
 				field_appended = True
 			if not field_appended:
 				field_list.append(Entities.Grass)
+
+	return field_list
+
+def layout_sunflower():
+	n_fields = field.get_n_fields()
+	field_list = []
+	for x in range(get_world_size()):
+		for y in range(get_world_size()):
+			nr = y + ( y * get_world_size() )
+			nr = nr + ( x % 2 )
+			if nr % 2 == 0:
+				field_list.append(Entities.Sunflower)
+			else:
+				field_list.append(Entities.Carrot)
 
 	return field_list
 									

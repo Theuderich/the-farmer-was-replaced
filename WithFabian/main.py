@@ -42,6 +42,33 @@ def move_n(nx, ny):
 		move(y_dir)
 
 
+def do_harvest_sunflower_mix():
+	global field_layout_in_progress
+	for col in range(get_world_size()):
+		for row in range(get_world_size()):
+
+			field.update_status_can_harvest(can_harvest())
+			field.update_my_measure()
+			field_entity = get_entity_type()
+			if field_entity != Entities.Sunflower:
+				harvest()
+				field.build_field(field_entity)
+
+			move(North)	
+		move(East)
+
+	while True:
+		my_x = get_pos_x()
+		my_y = get_pos_y()
+		x,y = field.get_coordinates_best_sunflower()
+		move_n(my_x - x, my_y - y)
+		harvest()
+		field_layout_in_progress = False
+	
+	return
+	
+
+
 def do_harvest():
 	global field_layout_in_progress
 
@@ -118,10 +145,13 @@ while True:
 	demand = warehouse.get_demand()
 	active_demand = Entities.Pumpkin
 
-	field_layout = schedule()
-	apply_layout(field_layout)
+	# field_layout = schedule()
+	# apply_layout(field_layout)
 	# schedule_harvest_type = HARVEST_ALL_PUMPKINS
-	if schedule_harvest_type == HARVEST_SIMPLE:
-		do_harvest()
-	elif schedule_harvest_type == HARVEST_ALL_PUMPKINS:
-		do_harvest_pumpkins()
+	# if schedule_harvest_type == HARVEST_SIMPLE:
+	# 	do_harvest()
+	# elif schedule_harvest_type == HARVEST_ALL_PUMPKINS:
+	# 	do_harvest_pumpkins()
+	field_layout = layout_planner.layout_sunflower()
+	apply_layout(field_layout)
+	do_harvest_sunflower_mix()
