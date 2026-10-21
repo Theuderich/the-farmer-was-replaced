@@ -1,6 +1,7 @@
 import warehouse
 import field
 import layout_planner
+import maze
 
 HARVEST_SIMPLE = 0
 HARVEST_ALL_PUMPKINS = 1
@@ -14,7 +15,11 @@ field_layout = []
 pumpkin_field_status = False
 
 # field.clear_field()
+
 field.init()
+maze.init()
+
+
 def move_to_start():
 	my_x = get_pos_x()
 	print(my_x)
@@ -205,14 +210,45 @@ def fertalize():
 			move(North)	
 		move(East)
 
+def make_labyrinth(size):
+	field.clear_field()
+	plant(Entities.Bush)
+	use_item(Items.Weird_Substance, size)
+
+def count_movements():
+	directions = [North, East, South, West]
+	count = 0
+	for dir in directions:
+		if can_move(dir):
+			count += 1
+	return count
+
+
+def is_corner():
+	return count_movements() > 2
+
+
+
 move_to_start()
 while True:
 	
 	demand = warehouse.get_demand()
 	active_demand = Entities.Pumpkin
 
-	apply_layout(layout_planner.layout_cactus())
-	do_harvest_cactus()
+
+	make_labyrinth(5)
+	maze.search_treasurt()
+	move_to_start()
+
+	# while True:
+	# 	if get_entity_type() == Entities.Treasure:
+	# 		harvest()
+	# 		break
+	# 	else:
+	# 		tx, ty = measure()
+
+	# apply_layout(layout_planner.layout_cactus())
+	# do_harvest_cactus()
 	# fertalize()
 	# do_harvest()
 	
