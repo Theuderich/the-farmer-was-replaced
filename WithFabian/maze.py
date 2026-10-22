@@ -1,0 +1,176 @@
+n_edge = get_world_size()
+n_fields = get_world_size() * get_world_size()
+
+list_dirs = [North, East, South, West]
+list_dirs_turn_right = [North, East, South, West]
+mem_maze_cell_status = []
+
+
+def init():
+	for field_index in range(n_fields):
+		mem_maze_cell_status.append(None)
+
+def get_list_index(x, y):
+	return y + (x * n_edge)
+
+def where_am_i():
+	return get_pos_x(), get_pos_y()
+
+def set_my_cell_status(status):
+	x, y = where_am_i()
+	mem_maze_cell_status[get_list_index(x, y)] = status
+
+def coordinate_move(dir):
+	x, y = where_am_i()
+	if dir == North:
+		y += 1
+	elif dir == East:
+		x += 1
+	elif dir == South:
+		y -= 1
+	elif dir == West:
+		x -= 1
+	return x, y
+
+def get_dir_status(dir):
+	dir_x, dir_y = coordinate_move(dir)
+	dir_list_index = get_list_index(dir_x, dir_y)
+	return mem_maze_cell_status[dir_list_index]
+
+def is_dir_known(dir):
+	return get_dir_status(dir) == None
+
+def is_dir_status_smaller(dir, compare):
+	return get_dir_status(dir) < compare
+	
+def count_movements():
+	directions = [North, East, South, West]
+	count = 0
+	for dir in directions:
+		if can_move(dir):
+			count += 1
+	return count
+
+
+# def find_all_possible_dirs():
+# 	possible_dirs = []
+# 	for dir in list_dirs:
+# 		if can_move(dir):
+# 			possible_dirs.append(dir)
+# 	return possible_dirs
+
+ 
+# def is_corner():
+# 	possible_dirs = find_all_possible_dirs()
+# 	return len(possible_dirs) > 2
+
+
+# def get_the_right_dir(last_move, possible_dirs):
+#     return possible_dirs[0] if len(possible_dirs) > 0 else last_move
+
+
+def get_right_of(dir):
+	if dir == North:
+		return East
+	elif dir == East:
+		return South
+	elif dir == South:
+		return West
+	elif dir == West:
+		return North
+	return North
+
+
+
+def get_straight_of(dir):
+	return dir
+
+
+def get_left_of(dir):
+	if dir == North:
+		return West
+	elif dir == East:
+		return North
+	elif dir == South:
+		return East
+	elif dir == West:
+		return South
+	return North
+
+
+def get_turn_around(dir):
+	if dir == North:
+		return South
+	elif dir == East:
+		return West
+	elif dir == South:
+		return North
+	elif dir == West:
+		return East
+	return North
+
+
+def search_treasure_turn_right():
+	last_moved_dir = North
+	while True:
+		if get_entity_type() == Entities.Treasure:
+			harvest()
+			return
+		next_dir = get_right_of(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+		next_dir = get_straight_of(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+		next_dir = get_left_of(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+		next_dir = get_turn_around(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+
+
+	
+def search_treasure_back_tracking():
+	step_count = 1
+	back_tracking_active = False
+	back_tracking_last_status = n_fields
+	while True:
+		if get_entity_type() == Entities.Treasure:
+			harvest()
+			return
+		if not back_tracking_active:
+			set_my_cell_status(step_count)
+			have_moved = False
+			for dir in list_dirs:
+				if not have_moved and can_move(dir) and is_dir_known(dir):
+					move(dir)
+					have_moved = True
+			if have_moved:
+				step_count += 1
+			else:
+				back_tracking_active = True
+				back_tracking_last_status = step_count
+				change_hat(Hats.Purple_Hat)
+		else:
+			have_moved = False
+			for dir in list_dirs:
+				if not have_moved and can_move(dir) and is_dir_status_smaller(dir, back_tracking_last_status):
+					move(dir)
+					have_moved = True
+					back_tracking_last_status = get_dir_status(dir)
+			if have_moved:
+				if is_corner():
+					change_hat(Hats.Straw_Hat)
+					back_tracking_active = False
+			
+			# harvest()
+			# return
+			
+
+
+			

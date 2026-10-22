@@ -171,6 +171,11 @@ def build_sunflower():
 		till()
 	plant(Entities.Sunflower)
 
+def build_cactus():
+	if get_ground_type() == Grounds.Grassland:
+		till()
+	plant(Entities.Cactus)
+
 def build_field(target_field):
 	if target_field == Entities.Pumpkin:
 		build_pumpkin()
@@ -182,5 +187,7 @@ def build_field(target_field):
 		build_grass()
 	elif target_field == Entities.Sunflower:
 		build_sunflower()
+	elif target_field == Entities.Cactus:
+		build_cactus()
 
 																				
