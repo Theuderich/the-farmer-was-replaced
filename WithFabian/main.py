@@ -237,7 +237,7 @@ while True:
 
 
 	make_labyrinth(5)
-	maze.search_treasurt()
+	maze.search_treasure_back_tracking()
 	move_to_start()
 
 	# while True:

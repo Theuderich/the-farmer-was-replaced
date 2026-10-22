@@ -2,6 +2,7 @@ n_edge = get_world_size()
 n_fields = get_world_size() * get_world_size()
 
 list_dirs = [North, East, South, West]
+list_dirs_turn_right = [North, East, South, West]
 mem_maze_cell_status = []
 
 
@@ -51,11 +52,30 @@ def count_movements():
 	return count
 
 
+def find_all_possible_dirs():
+	possible_dirs = []
+    for dir in list_dirs:
+        if can_move(dir):
+            possible_dirs.append(dir)
+    return possible_dirs
+
+ 
 def is_corner():
-	return count_movements() > 2
+    possible_dirs = find_all_possible_dirs():
+	return len(count_movements()) > 2
 
 
-def search_treasurt():
+def get_the_right_dir(last_move, possible_dirs):
+    # TODO
+    return possible_dirs[0] if len(possible_dirs) > 0 else last_move
+
+def search_treasure_turn_right():
+	last_moved_dir = None
+	while True:
+        possible_dirs = find_all_possible_dirs()
+
+    
+def search_treasure_back_tracking():
 	step_count = 1
 	back_tracking_active = False
 	back_tracking_last_status = n_fields
