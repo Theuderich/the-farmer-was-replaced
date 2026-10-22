@@ -236,8 +236,9 @@ while True:
 	active_demand = Entities.Pumpkin
 
 
-	make_labyrinth(5)
-	maze.search_treasure_back_tracking()
+	make_labyrinth(10)
+	maze.search_treasure_turn_right()
+	# maze.search_treasure_back_tracking()
 	move_to_start()
 
 	# while True:

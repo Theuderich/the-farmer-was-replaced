@@ -52,29 +52,89 @@ def count_movements():
 	return count
 
 
-def find_all_possible_dirs():
-	possible_dirs = []
-    for dir in list_dirs:
-        if can_move(dir):
-            possible_dirs.append(dir)
-    return possible_dirs
+# def find_all_possible_dirs():
+# 	possible_dirs = []
+# 	for dir in list_dirs:
+# 		if can_move(dir):
+# 			possible_dirs.append(dir)
+# 	return possible_dirs
 
  
-def is_corner():
-    possible_dirs = find_all_possible_dirs():
-	return len(count_movements()) > 2
+# def is_corner():
+# 	possible_dirs = find_all_possible_dirs()
+# 	return len(possible_dirs) > 2
 
 
-def get_the_right_dir(last_move, possible_dirs):
-    # TODO
-    return possible_dirs[0] if len(possible_dirs) > 0 else last_move
+# def get_the_right_dir(last_move, possible_dirs):
+#     return possible_dirs[0] if len(possible_dirs) > 0 else last_move
+
+
+def get_right_of(dir):
+	if dir == North:
+		return East
+	elif dir == East:
+		return South
+	elif dir == South:
+		return West
+	elif dir == West:
+		return North
+	return North
+
+
+
+def get_straight_of(dir):
+	return dir
+
+
+def get_left_of(dir):
+	if dir == North:
+		return West
+	elif dir == East:
+		return North
+	elif dir == South:
+		return East
+	elif dir == West:
+		return South
+	return North
+
+
+def get_turn_around(dir):
+	if dir == North:
+		return South
+	elif dir == East:
+		return West
+	elif dir == South:
+		return North
+	elif dir == West:
+		return East
+	return North
+
 
 def search_treasure_turn_right():
-	last_moved_dir = None
+	last_moved_dir = North
 	while True:
-        possible_dirs = find_all_possible_dirs()
+		if get_entity_type() == Entities.Treasure:
+			harvest()
+			return
+		next_dir = get_right_of(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+		next_dir = get_straight_of(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+		next_dir = get_left_of(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
+		next_dir = get_turn_around(last_moved_dir)
+		if move(next_dir):
+			last_moved_dir = next_dir
+			continue
 
-    
+
+	
 def search_treasure_back_tracking():
 	step_count = 1
 	back_tracking_active = False
