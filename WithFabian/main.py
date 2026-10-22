@@ -230,6 +230,16 @@ def is_corner():
 
 
 move_to_start()
+
+fertalize()
+do_harvest()
+	
+field_layout = layout_planner.layout_sunflower()
+apply_layout(field_layout)
+do_harvest_sunflower_mix(3)
+
+
+
 while True:
 	
 	demand = warehouse.get_demand()
