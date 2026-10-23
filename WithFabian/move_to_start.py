@@ -1,8 +1,8 @@
 def move_n(nx, ny):
-	for ix in range(nx):
-		move(West)
-	for iy in range(ny):
-		move(South)
+    for ix in range(nx):
+        move(West)
+    for iy in range(ny):
+        move(South)
 
 my_x = get_pos_x()
 print(my_x)

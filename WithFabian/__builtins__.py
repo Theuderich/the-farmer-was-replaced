@@ -54,9 +54,9 @@ type Primitive = _bool | _int | _float | string | None
 
 # --------------------------------------------------
 type Enums = (
-	Entity | Entities |
+    Entity | Entities |
     Ground | Grounds | Hat | Hats | Item | Items |
-	Leaderboard | Leaderboards | Unlock | Unlocks
+    Leaderboard | Leaderboards | Unlock | Unlocks
 )
 """
 Type representing all available enums in TFWR.
@@ -89,16 +89,16 @@ _Hashable_ = TypeVar("_Hashable_", Hashable, Hashable, covariant = True)
 
 # --------------------------------------------------
 type Any = (
-    Primitive | 								# Python builtin    - basic types
+    Primitive |                                 # Python builtin    - basic types
 
-	range_class | Callable[..., Any] |			# Python builtin    - functions / modules
+    range_class | Callable[..., Any] |          # Python builtin    - functions / modules
 
-	_tuple[Any,...] | _list[Any] |				# Python builtin    - collection types
+    _tuple[Any,...] | _list[Any] |              # Python builtin    - collection types
     _set[Hashable] | _dict[Hashable, Any] |
 
-	Direction | Enums | 						# Game builtins		- enum classes
+    Direction | Enums |                         # Game builtins     - enum classes
 
-	Drone										# Game builtins		- megafarm classes
+    Drone                                       # Game builtins     - megafarm classes
 )
 """
 Type representing all of the useable types in TFWR.
@@ -119,9 +119,9 @@ _Any_ = TypeVar("_Any_", Any, Any, covariant = True)
 
 # --------------------------------------------------
 type AnyIterable = (
-	_dict[Hashable, Any] | _list[Any] | _set[Hashable] | _tuple[Any,...] |
-	string | range_class |
-	Entities | Grounds | Hats | Items | Leaderboard | Unlocks
+    _dict[Hashable, Any] | _list[Any] | _set[Hashable] | _tuple[Any,...] |
+    string | range_class |
+    Entities | Grounds | Hats | Items | Leaderboard | Unlocks
 )
 """
 Type representing all of the iterable types in TFWR.
@@ -143,69 +143,69 @@ included:
 # Comment out the `dict` builtins import above to prevent conflict errors.
 
 # class dict[key: Hashable, value: Any](_dict):
-# 	"""
-# 	Builds an unordered collection of key-value pairs
+#   """
+#   Builds an unordered collection of key-value pairs
 
-# 	dict() -> new empty dictionary
+#   dict() -> new empty dictionary
 
-# 	dict(dictionary[keys, values]) -> new dictionary initialized from an existing `dictionary`
+#   dict(dictionary[keys, values]) -> new dictionary initialized from an existing `dictionary`
 
-# 	takes `1 + len(keys) + len(values)` ticks to execute if a dictionary is given.
-# 	takes `1` tick to execute if no input is given.
-# 	"""
+#   takes `1 + len(keys) + len(values)` ticks to execute if a dictionary is given.
+#   takes `1` tick to execute if no input is given.
+#   """
 
-# 	def __init__(self: Self, input: _dict[_Hashable_, _Any_] | None | Container[Hashable] = None) -> None:
-# 		...
+#   def __init__(self: Self, input: _dict[_Hashable_, _Any_] | None | Container[Hashable] = None) -> None:
+#       ...
 
-# 	def len(self: Self) -> _int:
-# 		"""
-# 		Returns the number of items in the dictionary.
+#   def len(self: Self) -> _int:
+#       """
+#       Returns the number of items in the dictionary.
 
-# 		returns the length of the dictionary.
+#       returns the length of the dictionary.
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_dict = {"One": 1, "Two": 2, "Three": 3}
-# 		length = len(my_dict)
-# 		print(length)
-# 		```
+#       ```
+#       my_dict = {"One": 1, "Two": 2, "Three": 3}
+#       length = len(my_dict)
+#       print(length)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		3
-# 		```
-# 		"""
-# 		...
+#       ```
+#       3
+#       ```
+#       """
+#       ...
 
-# 	def pop(self: Self, key: Hashable) -> Any: # type: ignore
-# 		"""
-# 		Remove the key-value pair corresponding to the `key` in the dict
+#   def pop(self: Self, key: Hashable) -> Any: # type: ignore
+#       """
+#       Remove the key-value pair corresponding to the `key` in the dict
 
-# 		returns the value of the removed key-value pair
+#       returns the value of the removed key-value pair
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_dict = {"One": 1, "Two": 2, "Three": 3}
-# 		print("Old Value:", my_dict.pop("One"))
-# 		print("Current Dict:", my_dict)
-# 		```
+#       ```
+#       my_dict = {"One": 1, "Two": 2, "Three": 3}
+#       print("Old Value:", my_dict.pop("One"))
+#       print("Current Dict:", my_dict)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		Old Value: 1
-# 		Current Dict: {"Two":2,"Three":3}
-# 		```
-# 		"""
-# 		...
-# 	...
+#       ```
+#       Old Value: 1
+#       Current Dict: {"Two":2,"Three":3}
+#       ```
+#       """
+#       ...
+#   ...
 
 
 # --------------------------------------------------
@@ -215,140 +215,140 @@ included:
 # Comment out the `list` builtins import above to prevent conflict errors.
 
 # class list[value: Any](_list):
-# 	"""
-# 	Builds an ordered sequence of values.
+#   """
+#   Builds an ordered sequence of values.
 
-# 	list() -> new empty list
+#   list() -> new empty list
 
-# 	list(collection: list | tuple | set | str) -> new list from the values of the provided `collection`
+#   list(collection: list | tuple | set | str) -> new list from the values of the provided `collection`
 
-# 	list(collection: set | dict) -> new list from the keys of the given `collection`
+#   list(collection: set | dict) -> new list from the keys of the given `collection`
 
-# 	list(game_enum) -> new list from the values of an in-game enumm `game_enum`
+#   list(game_enum) -> new list from the values of an in-game enumm `game_enum`
 
-# 	takes `1 + len(collection)` where `collection` is one of the above if an input is given.
-# 	takes `1` tick to execute if no input is given.
-# 	"""
+#   takes `1 + len(collection)` where `collection` is one of the above if an input is given.
+#   takes `1` tick to execute if no input is given.
+#   """
 
-# 	def __init__(self: Self, input: AnyIterable | None = None) -> None:
-# 		...
+#   def __init__(self: Self, input: AnyIterable | None = None) -> None:
+#       ...
 
-# 	def append(self: Self, object: Any) -> None:
-# 		"""
-# 		Add `object` to the end of a list provided as `given_list`.
+#   def append(self: Self, object: Any) -> None:
+#       """
+#       Add `object` to the end of a list provided as `given_list`.
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_list = [1, 2, 3]
-# 		my_list.append(4)
-# 		print(my_list)
-# 		```
+#       ```
+#       my_list = [1, 2, 3]
+#       my_list.append(4)
+#       print(my_list)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		[1,2,3,4]
-# 		```
-# 		"""
-# 		...
+#       ```
+#       [1,2,3,4]
+#       ```
+#       """
+#       ...
 
-# 	def insert(self: Self, index: _int, object: Any) -> None: # type: ignore
-# 		"""
-# 		Add a `object` to the specified `index` to a list provided as `given_list`.
+#   def insert(self: Self, index: _int, object: Any) -> None: # type: ignore
+#       """
+#       Add a `object` to the specified `index` to a list provided as `given_list`.
 
-# 		takes `1 + len(list) - index` ticks to execute
+#       takes `1 + len(list) - index` ticks to execute
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_list = [1, 2, 3]
-# 		my_list.insert(1, 4)
-# 		print(my_list)
-# 		```
+#       ```
+#       my_list = [1, 2, 3]
+#       my_list.insert(1, 4)
+#       print(my_list)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		[1,4,2,3]
-# 		```
-# 		"""
-# 		...
+#       ```
+#       [1,4,2,3]
+#       ```
+#       """
+#       ...
 
-# 	def len(self: Self) -> _int:
-# 		"""
-# 		Returns the number of items in the list.
+#   def len(self: Self) -> _int:
+#       """
+#       Returns the number of items in the list.
 
-# 		returns the length of the list.
+#       returns the length of the list.
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_list = [1, 2, 3]
-# 		length = len(my_list)
-# 		print(length)
-# 		```
+#       ```
+#       my_list = [1, 2, 3]
+#       length = len(my_list)
+#       print(length)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		3
-# 		```
-# 		"""
-# 		...
+#       ```
+#       3
+#       ```
+#       """
+#       ...
 
-# 	def pop(self: Self, index: _int) -> Any: # type: ignore
-# 		"""
-# 		Remove the element corresponding to the `index` in the list. If no index is specified removes the last element in the list.
+#   def pop(self: Self, index: _int) -> Any: # type: ignore
+#       """
+#       Remove the element corresponding to the `index` in the list. If no index is specified removes the last element in the list.
 
-# 		returns the value of the removed element
+#       returns the value of the removed element
 
-# 		takes `len(list) - index` ticks to execute if an `index` is provided
-# 		takes `1` tick to execute if no `index` is provided
+#       takes `len(list) - index` ticks to execute if an `index` is provided
+#       takes `1` tick to execute if no `index` is provided
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_list = [1, 2, 3]
-# 		print("Old Value:", my_list.pop(1))
-# 		print("Current List:", my_list)
-# 		```
+#       ```
+#       my_list = [1, 2, 3]
+#       print("Old Value:", my_list.pop(1))
+#       print("Current List:", my_list)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		Old Value: 2
-# 		Current List: [1,3]
-# 		```
-# 		"""
-# 		...
+#       ```
+#       Old Value: 2
+#       Current List: [1,3]
+#       ```
+#       """
+#       ...
 
-# 	def remove(self: Self, object: Any) -> None:
-# 		"""
-# 		Remove the element corresponding to the `object` in the list.
+#   def remove(self: Self, object: Any) -> None:
+#       """
+#       Remove the element corresponding to the `object` in the list.
 
-# 		takes `num_comparions + num_shifts` ticks to execute
+#       takes `num_comparions + num_shifts` ticks to execute
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_list = [1, 2, 3]
-# 		my_list.remove(1)
-# 		print(my_list)
-# 		```
+#       ```
+#       my_list = [1, 2, 3]
+#       my_list.remove(1)
+#       print(my_list)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		[2,3]
-# 		```
-# 		"""
-# 		...
-# 	...
+#       ```
+#       [2,3]
+#       ```
+#       """
+#       ...
+#   ...
 
 
 # --------------------------------------------------
@@ -358,178 +358,178 @@ included:
 # Comment out the `set` builtins import above to prevent conflict errors.
 
 # class set[value: Hashable](_set):
-# 	"""
-# 	Builds an unordered collection of elements
+#   """
+#   Builds an unordered collection of elements
 
-# 	set() -> new empty set
+#   set() -> new empty set
 
-# 	set(collection: list | tuple | set | str) -> new set from the values of the provided `collection`
+#   set(collection: list | tuple | set | str) -> new set from the values of the provided `collection`
 
-# 	set(collection: set | dict) -> new set from the keys of the given `collection`
+#   set(collection: set | dict) -> new set from the keys of the given `collection`
 
-# 	set(game_enum) -> new set from the values of an in-game enumm `game_enum`
+#   set(game_enum) -> new set from the values of an in-game enumm `game_enum`
 
-# 	takes `1 + len(collection)` where `collection` is one of the above if an input is given.
-# 	takes `1` tick to execute if no input is given.
-# 	"""
+#   takes `1 + len(collection)` where `collection` is one of the above if an input is given.
+#   takes `1` tick to execute if no input is given.
+#   """
 
-# 	def __init__(self: Self, input: AnyIterable | None = None) -> None:
-# 		...
+#   def __init__(self: Self, input: AnyIterable | None = None) -> None:
+#       ...
 
-# 	def add(self: Self, object: Any) -> None:
-# 		"""
-# 		Add the `object` to a `given_set`.
+#   def add(self: Self, object: Any) -> None:
+#       """
+#       Add the `object` to a `given_set`.
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_set = {1, 2, 3}
-# 		my_set.add(4)
-# 		print(my_set)
-# 		```
+#       ```
+#       my_set = {1, 2, 3}
+#       my_set.add(4)
+#       print(my_set)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		{1,2,3,4}
-# 		```
-# 		"""
-# 		...
+#       ```
+#       {1,2,3,4}
+#       ```
+#       """
+#       ...
 
-# 	def len(self: Self) -> _int:
-# 		"""
-# 		Returns the number of items in the set.
+#   def len(self: Self) -> _int:
+#       """
+#       Returns the number of items in the set.
 
-# 		returns the length of the set.
+#       returns the length of the set.
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_set = {1, 2, 3}
-# 		length = len(my_set)
-# 		print(length)
-# 		```
+#       ```
+#       my_set = {1, 2, 3}
+#       length = len(my_set)
+#       print(length)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		3
-# 		```
-# 		"""
-# 		...
+#       ```
+#       3
+#       ```
+#       """
+#       ...
 
-# 	def remove(self: Self, object: Any) -> None:
-# 		"""
-# 		Remove the `object` from the set.
+#   def remove(self: Self, object: Any) -> None:
+#       """
+#       Remove the `object` from the set.
 
-# 		takes `1` tick to execute.
+#       takes `1` tick to execute.
 
-# 		example usage:
+#       example usage:
 
-# 		```
-# 		my_set = {1, 2, 3}
-# 		my_set.remove(2)
-# 		print(my_set)
-# 		```
+#       ```
+#       my_set = {1, 2, 3}
+#       my_set.remove(2)
+#       print(my_set)
+#       ```
 
-# 		Output:
+#       Output:
 
-# 		```
-# 		{1,3}
-# 		```
-# 		"""
-# 		...
-# 	...
+#       ```
+#       {1,3}
+#       ```
+#       """
+#       ...
+#   ...
 
 # -------------------------------------------------------------------------------
 @overload
 def range(stop: _float) -> range_class:  # type: ignore
-	"""
-	Returns a sequence of numbers from `0` (inclusive) to `stop` (exclusive).
+    """
+    Returns a sequence of numbers from `0` (inclusive) to `stop` (exclusive).
 
-	returns a range object.
+    returns a range object.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	for i in range(5):
-	    print(i)
-	```
+    ```
+    for i in range(5):
+        print(i)
+    ```
 
-	Output:
+    Output:
 
-	```
-	0
-	1
-	2
-	3
-	4
-	```
+    ```
+    0
+    1
+    2
+    3
+    4
+    ```
 
-	Note: if you wish to type hint a `range` variable use the alias `range_class` instead
-	"""
-	...
+    Note: if you wish to type hint a `range` variable use the alias `range_class` instead
+    """
+    ...
 
 @overload
 def range(start: _float, stop: _float) -> range_class:  # type: ignore
-	"""
-	Returns a sequence of numbers from `start` (inclusive) to `stop` (exclusive).
+    """
+    Returns a sequence of numbers from `start` (inclusive) to `stop` (exclusive).
 
-	returns a range object.
+    returns a range object.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	for i in range(2, 5):
-	    print(i)
-	```
+    ```
+    for i in range(2, 5):
+        print(i)
+    ```
 
-	Output:
+    Output:
 
-	```
-	2
-	3
-	4
-	```
+    ```
+    2
+    3
+    4
+    ```
 
-	Note: if you wish to type hint a `range` variable use the alias `range_class` instead
-	"""
-	...
+    Note: if you wish to type hint a `range` variable use the alias `range_class` instead
+    """
+    ...
 
 @overload
 def range(start: _float, stop: _float, step: _float) -> range_class:  # type: ignore
-	"""
-	Returns a sequence of numbers from `start` (inclusive) to `stop` (exclusive) every `step` interval.
+    """
+    Returns a sequence of numbers from `start` (inclusive) to `stop` (exclusive) every `step` interval.
 
-	returns a range object.
+    returns a range object.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	for i in range(2, 5, 2):
-	    print(i)
-	```
+    ```
+    for i in range(2, 5, 2):
+        print(i)
+    ```
 
-	Output:
+    Output:
 
-	```
-	2
-	4
-	```
+    ```
+    2
+    4
+    ```
 
-	Note: if you wish to type hint a `range` variable use the alias `range_class` instead
-	"""
-	...
+    Note: if you wish to type hint a `range` variable use the alias `range_class` instead
+    """
+    ...
 
 # --------------------------------------------------
 """
@@ -554,174 +554,174 @@ print(last_number)
 
 # --------------------------------------------------
 def add(given_set: _set[_Hashable_], object: Any):
-	"""
-	Add the `object` to a `given_set`.
+    """
+    Add the `object` to a `given_set`.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	my_set = {1, 2, 3}
-	my_set.add(4)
-	print(my_set)
-	```
+    ```
+    my_set = {1, 2, 3}
+    my_set.add(4)
+    print(my_set)
+    ```
 
-	Output:
+    Output:
 
-	```
-	{1,2,3,4}
-	```
-	"""
-	...
+    ```
+    {1,2,3,4}
+    ```
+    """
+    ...
 
 # --------------------------------------------------
 def append(given_list: _list[_Any_], object: Any):
-	"""
-	Add `object` to the end of a list provided as `given_list`.
+    """
+    Add `object` to the end of a list provided as `given_list`.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	my_list = [1, 2, 3]
-	my_list.append(4)
-	print(my_list)
-	```
+    ```
+    my_list = [1, 2, 3]
+    my_list.append(4)
+    print(my_list)
+    ```
 
-	Output:
+    Output:
 
-	```
-	[1,2,3,4]
-	```
-	"""
-	...
+    ```
+    [1,2,3,4]
+    ```
+    """
+    ...
 
 # --------------------------------------------------
 def insert(given_list: _list[_Any_], index: _int, object: Any):
-	"""
-	Add a `object` to the specified `index` to a list provided as `given_list`.
+    """
+    Add a `object` to the specified `index` to a list provided as `given_list`.
 
-	takes `1 + len(list) - index` ticks to execute
+    takes `1 + len(list) - index` ticks to execute
 
-	example usage:
+    example usage:
 
-	```
-	my_list = [1, 2, 3]
-	my_list.insert(1, 4)
-	print(my_list)
-	```
+    ```
+    my_list = [1, 2, 3]
+    my_list.insert(1, 4)
+    print(my_list)
+    ```
 
-	Output:
+    Output:
 
-	```
-	[1,4,2,3]
-	```
-	"""
-	...
+    ```
+    [1,4,2,3]
+    ```
+    """
+    ...
 
 # --------------------------------------------------
 def len(object : string | _dict[_Hashable_, _Any_] | _list[_Any_] | _set[_Hashable_] | _tuple[_Any_]) -> _int:
-	"""
-	Returns the number of items in the dict, list, set or str provided as `collection`.
+    """
+    Returns the number of items in the dict, list, set or str provided as `collection`.
 
-	returns the length of the dict, list, set or str.
+    returns the length of the dict, list, set or str.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	my_list = [1, 2, 3]
-	length = len(my_list)
-	print(length)
-	```
+    ```
+    my_list = [1, 2, 3]
+    length = len(my_list)
+    print(length)
+    ```
 
-	Output:
+    Output:
 
-	```
-	3
-	```
-	"""
-	...
+    ```
+    3
+    ```
+    """
+    ...
 
 # --------------------------------------------------
 def pop(collection: _dict[_Hashable_, _Any_] | _list[_Any_], object: Any):
-	"""
-	Remove the element corresponding to the `key` in a dict or list provided as `collection`. If it is a list and no `key` is specified removes the last element in the list.
+    """
+    Remove the element corresponding to the `key` in a dict or list provided as `collection`. If it is a list and no `key` is specified removes the last element in the list.
 
-	returns the value of the removed element
+    returns the value of the removed element
 
-	takes `len(list) - index` ticks to execute if an index is provided
-	takes `1` tick to execute if no `key` is provided, of if a dict is provided
+    takes `len(list) - index` ticks to execute if an index is provided
+    takes `1` tick to execute if no `key` is provided, of if a dict is provided
 
-	example usage:
+    example usage:
 
-	```
-	my_list = [1, 2, 3]
-	print("Old Value:", my_list.pop(1))
-	print("Current List:", my_list)
-	```
+    ```
+    my_list = [1, 2, 3]
+    print("Old Value:", my_list.pop(1))
+    print("Current List:", my_list)
+    ```
 
-	Output:
+    Output:
 
-	```
-	Old Value: 2
-	Current List: [1,3]
-	```
-	"""
-	...
+    ```
+    Old Value: 2
+    Current List: [1,3]
+    ```
+    """
+    ...
 
 # --------------------------------------------------
 def remove(collection: _list[_Any_] | _set[_Hashable_], object: Any):
-	"""
-	Remove the element corresponding to the `object` in a list or set provided as `collection`.
+    """
+    Remove the element corresponding to the `object` in a list or set provided as `collection`.
 
-	takes `num_comparions + num_shifts` ticks to execute if a list is provided.
-	takes `1` tick to execute if a set is provided.
+    takes `num_comparions + num_shifts` ticks to execute if a list is provided.
+    takes `1` tick to execute if a set is provided.
 
-	example usage:
+    example usage:
 
-	```
-	my_set = {1, 2, 3}
-	my_set.remove(2)
-	print(my_set)
-	```
+    ```
+    my_set = {1, 2, 3}
+    my_set.remove(2)
+    print(my_set)
+    ```
 
-	Output:
+    Output:
 
-	```
-	{1,3}
-	```
-	"""
-	...
+    ```
+    {1,3}
+    ```
+    """
+    ...
 
 # --------------------------------------------------
 def str(object: Any) -> string:
-	"""
-	Converts an object to its string representation.
+    """
+    Converts an object to its string representation.
 
-	returns the string representation of the object.
+    returns the string representation of the object.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	string = str(1000)
-	print(string)
-	```
+    ```
+    string = str(1000)
+    print(string)
+    ```
 
-	Output:
+    Output:
 
-	```
-	"1000"
-	```
+    ```
+    "1000"
+    ```
 
-	Note: if you wish to type hint a `str` variable use the alias `string` instead
-	"""
-	...
+    Note: if you wish to type hint a `str` variable use the alias `string` instead
+    """
+    ...
 
 
 
@@ -762,275 +762,275 @@ The direction west, i.e. left.
 
 # -------------------------------------------------------------------------------
 class Entity:
-	"""
-	A member of the Entities class
-	"""
-	...
+    """
+    A member of the Entities class
+    """
+    ...
 
 
 # --------------------------------------------------
 class Entities(_Enum):
-	@staticmethod
-	def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Entity:
-		return Entity()
+    @staticmethod
+    def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Entity:
+        return Entity()
 
-	Apple: Entity
-	"""
-	Dinosaurs love them apparently.
-	"""
+    Apple: Entity
+    """
+    Dinosaurs love them apparently.
+    """
 
-	Bush: Entity
-	"""
-	A small bush that drops `Items.Wood`.
+    Bush: Entity
+    """
+    A small bush that drops `Items.Wood`.
 
-	Average seconds to grow: 4
-	Grows on: grassland or soil
-	"""
+    Average seconds to grow: 4
+    Grows on: grassland or soil
+    """
 
-	Cactus: Entity
-	"""
-	Cacti come in 10 different sizes (0-9). When harvested, adjacent cacti that are in sorted order will also be harvested recursively.
-	You receive cactus equal to the number of harvested cacti squared.
+    Cactus: Entity
+    """
+    Cacti come in 10 different sizes (0-9). When harvested, adjacent cacti that are in sorted order will also be harvested recursively.
+    You receive cactus equal to the number of harvested cacti squared.
 
-	Average seconds to grow: 1
-	Grows on: soil
-	"""
+    Average seconds to grow: 1
+    Grows on: soil
+    """
 
-	Carrot: Entity
-	"""
-	Carrots!
+    Carrot: Entity
+    """
+    Carrots!
 
-	Average seconds to grow: 6
-	Grows on: soil
-	"""
+    Average seconds to grow: 6
+    Grows on: soil
+    """
 
-	Dead_Pumpkin: Entity
-	"""
-	One in five pumpkins dies when it grows up, leaving behind a dead pumpkin. Dead pumpkins are useless and disappear when something new is planted.
-	`can_harvest()` always returns `False` on dead pumpkins.
-	"""
+    Dead_Pumpkin: Entity
+    """
+    One in five pumpkins dies when it grows up, leaving behind a dead pumpkin. Dead pumpkins are useless and disappear when something new is planted.
+    `can_harvest()` always returns `False` on dead pumpkins.
+    """
 
-	Dinosaur: Entity
-	"""
-	A piece of the tail of the dinosaur hat. When wearing the dinosaur hat, the tail is dragged behind the drone filling previously moved tiles.
+    Dinosaur: Entity
+    """
+    A piece of the tail of the dinosaur hat. When wearing the dinosaur hat, the tail is dragged behind the drone filling previously moved tiles.
 
-	Average seconds to grow: 0.2
-	Grows on: grassland or soil
-	"""
+    Average seconds to grow: 0.2
+    Grows on: grassland or soil
+    """
 
-	Grass: Entity
-	"""
-	Grows automatically on grassland. Harvest it to obtain `Items.Hay`.
+    Grass: Entity
+    """
+    Grows automatically on grassland. Harvest it to obtain `Items.Hay`.
 
-	Average seconds to grow: 0.5
-	Grows on: grassland or soil
-	"""
+    Average seconds to grow: 0.5
+    Grows on: grassland or soil
+    """
 
-	Hedge: Entity
-	"""
-	Part of the maze.
-	"""
+    Hedge: Entity
+    """
+    Part of the maze.
+    """
 
-	Pumpkin: Entity
-	"""
-	Pumpkins grow together when they are next to other fully grown pumpkins. About 1 in 5 pumpkins dies when it grows up.
-	When you harvest a pumpkin you get `Items.Pumpkin` equal to the number of pumpkins in the mega pumpkin cubed.
+    Pumpkin: Entity
+    """
+    Pumpkins grow together when they are next to other fully grown pumpkins. About 1 in 5 pumpkins dies when it grows up.
+    When you harvest a pumpkin you get `Items.Pumpkin` equal to the number of pumpkins in the mega pumpkin cubed.
 
-	Average seconds to grow: 2
-	Grows on: soil
-	"""
+    Average seconds to grow: 2
+    Grows on: soil
+    """
 
-	Sunflower: Entity
-	"""
-	Sunflowers collect the power from the sun. Harvesting them will give you `Items.Power`.
-	If you harvest a sunflower with the maximum number of petals (and there are at least 10 sunflowers) you get 5x bonus power.
+    Sunflower: Entity
+    """
+    Sunflowers collect the power from the sun. Harvesting them will give you `Items.Power`.
+    If you harvest a sunflower with the maximum number of petals (and there are at least 10 sunflowers) you get 5x bonus power.
 
-	Average seconds to grow: 5
-	Grows on: soil
-	"""
+    Average seconds to grow: 5
+    Grows on: soil
+    """
 
-	Treasure: Entity
-	"""
-	A treasure that contains gold equal to the side length of the maze in which it is hidden. It can be harvested like a plant.
-	"""
+    Treasure: Entity
+    """
+    A treasure that contains gold equal to the side length of the maze in which it is hidden. It can be harvested like a plant.
+    """
 
-	Tree: Entity
-	"""
-	Trees drop more wood than bushes. They take longer to grow if other trees grow next to them.
+    Tree: Entity
+    """
+    Trees drop more wood than bushes. They take longer to grow if other trees grow next to them.
 
-	Average seconds to grow: 7
-	Grows on: grassland or soil
-	"""
+    Average seconds to grow: 7
+    Grows on: grassland or soil
+    """
 
 
 # -------------------------------------------------------------------------------
 class Ground:
-	"""
-	A member of the Grounds class
-	"""
-	...
+    """
+    A member of the Grounds class
+    """
+    ...
 
 
 # --------------------------------------------------
 class Grounds(_Enum):
-	@staticmethod
-	def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Ground:
-		return Ground()
+    @staticmethod
+    def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Ground:
+        return Ground()
 
-	Grassland: Ground
-	"""
-	The default ground. Grass will automatically grow on it.
-	"""
+    Grassland: Ground
+    """
+    The default ground. Grass will automatically grow on it.
+    """
 
-	Soil: Ground
-	"""
-	Calling `till()` turns the ground into this. Calling `till()` again changes it back to grassland.
-	"""
+    Soil: Ground
+    """
+    Calling `till()` turns the ground into this. Calling `till()` again changes it back to grassland.
+    """
 
 
 # -------------------------------------------------------------------------------
 class Hat:
-	"""
-	A member of the Hats class
-	"""
-	...
+    """
+    A member of the Hats class
+    """
+    ...
 
 
 # --------------------------------------------------
 class Hats(_Enum):
-	@staticmethod
-	def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Hat:
-		return Hat()
+    @staticmethod
+    def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Hat:
+        return Hat()
 
-	Brown_Hat: Hat
-	"""
-	A brown hat.
-	"""
+    Brown_Hat: Hat
+    """
+    A brown hat.
+    """
 
-	Cactus_Hat: Hat
-	"""
-	A hat shaped like a cactus.
-	"""
+    Cactus_Hat: Hat
+    """
+    A hat shaped like a cactus.
+    """
 
-	Carrot_Hat: Hat
-	"""
-	A hat shaped like a carrot.
-	"""
+    Carrot_Hat: Hat
+    """
+    A hat shaped like a carrot.
+    """
 
-	Dinosaur_Hat: Hat
-	"""
-	Equip it to start the dinosaur game.
-	"""
+    Dinosaur_Hat: Hat
+    """
+    Equip it to start the dinosaur game.
+    """
 
-	Gold_Hat: Hat
-	"""
-	A golden hat.
-	"""
+    Gold_Hat: Hat
+    """
+    A golden hat.
+    """
 
-	Gold_Trophy_Hat: Hat
-	"""
-	A golden trophy hat.
-	"""
+    Gold_Trophy_Hat: Hat
+    """
+    A golden trophy hat.
+    """
 
-	Golden_Cactus_Hat: Hat
-	"""
-	A golden hat shaped like a cactus.
-	"""
+    Golden_Cactus_Hat: Hat
+    """
+    A golden hat shaped like a cactus.
+    """
 
-	Golden_Carrot_Hat: Hat
-	"""
-	A golden hat shaped like a carrot.
-	"""
+    Golden_Carrot_Hat: Hat
+    """
+    A golden hat shaped like a carrot.
+    """
 
-	Golden_Gold_Hat: Hat
-	"""
-	A golden version of the gold hat.
-	"""
+    Golden_Gold_Hat: Hat
+    """
+    A golden version of the gold hat.
+    """
 
-	Golden_Pumpkin_Hat: Hat
-	"""
-	A golden hat shaped like a pumpkin.
-	"""
+    Golden_Pumpkin_Hat: Hat
+    """
+    A golden hat shaped like a pumpkin.
+    """
 
-	Golden_Sunflower_Hat: Hat
-	"""
-	A golden hat shaped like a sunflower.
-	"""
+    Golden_Sunflower_Hat: Hat
+    """
+    A golden hat shaped like a sunflower.
+    """
 
-	Golden_Tree_Hat: Hat
-	"""
-	A golden hat shaped like a tree.
-	"""
+    Golden_Tree_Hat: Hat
+    """
+    A golden hat shaped like a tree.
+    """
 
-	Gray_Hat: Hat
-	"""
-	A gray hat.
-	"""
+    Gray_Hat: Hat
+    """
+    A gray hat.
+    """
 
-	Green_Hat: Hat
-	"""
-	A green hat.
-	"""
+    Green_Hat: Hat
+    """
+    A green hat.
+    """
 
-	Pumpkin_Hat: Hat
-	"""
-	A hat shaped like a pumpkin.
-	"""
+    Pumpkin_Hat: Hat
+    """
+    A hat shaped like a pumpkin.
+    """
 
-	Purple_Hat: Hat
-	"""
-	A purple hat.
-	"""
+    Purple_Hat: Hat
+    """
+    A purple hat.
+    """
 
-	Silver_Trophy_Hat: Hat
-	"""
-	A silver trophy hat.
-	"""
+    Silver_Trophy_Hat: Hat
+    """
+    A silver trophy hat.
+    """
 
-	Straw_Hat: Hat
-	"""
-	The default hat.
-	"""
+    Straw_Hat: Hat
+    """
+    The default hat.
+    """
 
-	Sunflower_Hat: Hat
-	"""
-	A hat shaped like a sunflower.
-	"""
+    Sunflower_Hat: Hat
+    """
+    A hat shaped like a sunflower.
+    """
 
-	The_Farmers_Remains: Hat
-	"""
-	Unlocks the special hat 'The Farmers Remains'.
-	"""
+    The_Farmers_Remains: Hat
+    """
+    Unlocks the special hat 'The Farmers Remains'.
+    """
 
-	Top_Hat: Hat
-	"""
-	Unlocks the fancy Top Hat.
-	"""
+    Top_Hat: Hat
+    """
+    Unlocks the fancy Top Hat.
+    """
 
-	Traffic_Cone: Hat
-	"""
-	A traffic cone hat.
-	"""
+    Traffic_Cone: Hat
+    """
+    A traffic cone hat.
+    """
 
-	Traffic_Cone_Stack: Hat
-	"""
-	A stack of traffic cones as a hat.
-	"""
+    Traffic_Cone_Stack: Hat
+    """
+    A stack of traffic cones as a hat.
+    """
 
-	Tree_Hat: Hat
-	"""
-	A hat shaped like a tree.
-	"""
+    Tree_Hat: Hat
+    """
+    A hat shaped like a tree.
+    """
 
-	Wizard_Hat: Hat
-	"""
-	A magical wizard hat.
-	"""
+    Wizard_Hat: Hat
+    """
+    A magical wizard hat.
+    """
 
-	Wood_Trophy_Hat: Hat
-	"""
-	A wooden trophy hat.
-	"""
+    Wood_Trophy_Hat: Hat
+    """
+    A wooden trophy hat.
+    """
 
 
 # -------------------------------------------------------------------------------
@@ -1110,290 +1110,290 @@ class Items(_Enum):
 
 # -------------------------------------------------------------------------------
 class Leaderboard:
-	"""
-	A member of the Leaderboards class
-	"""
-	...
+    """
+    A member of the Leaderboards class
+    """
+    ...
 
 
 # --------------------------------------------------
 class Leaderboards(_Enum):
-	@staticmethod
-	def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Leaderboard:
-		return Leaderboard()
+    @staticmethod
+    def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Leaderboard:
+        return Leaderboard()
 
-	Cactus: Leaderboard
-	"""
-	Farm 33_554_432 cacti with multiple drones.
-	"""
+    Cactus: Leaderboard
+    """
+    Farm 33_554_432 cacti with multiple drones.
+    """
 
-	Cactus_Single: Leaderboard
-	"""
-	Farm 131_072_cacti with a single drone on an 8x8 farm.
-	"""
+    Cactus_Single: Leaderboard
+    """
+    Farm 131_072_cacti with a single drone on an 8x8 farm.
+    """
 
-	Carrots: Leaderboard
-	"""
-	Farm 2_000_000_000 carrots with multiple drones.
-	"""
+    Carrots: Leaderboard
+    """
+    Farm 2_000_000_000 carrots with multiple drones.
+    """
 
-	Carrots_Single: Leaderboard
-	"""
-	Farm 100_000_000 carrots with a single drone on an 8x8 farm.
-	"""
+    Carrots_Single: Leaderboard
+    """
+    Farm 100_000_000 carrots with a single drone on an 8x8 farm.
+    """
 
-	Dinosaur: Leaderboard
-	"""
-	Farm 33_488_928 bones with multiple drones.
-	"""
+    Dinosaur: Leaderboard
+    """
+    Farm 33_488_928 bones with multiple drones.
+    """
 
-	Fastest_Reset: Leaderboard
-	"""
-	The most prestigious category. Completely automate the game from a single farm plot to unlocking the leaderboards again.
-	"""
+    Fastest_Reset: Leaderboard
+    """
+    The most prestigious category. Completely automate the game from a single farm plot to unlocking the leaderboards again.
+    """
 
-	Hay: Leaderboard
-	"""
-	Farm 2_000_000_000 hay with multiple drones.
-	"""
+    Hay: Leaderboard
+    """
+    Farm 2_000_000_000 hay with multiple drones.
+    """
 
-	Hay_Single: Leaderboard
-	"""
-	Farm 100_000_000 hay with a single drone on an 8x8 farm.
-	"""
+    Hay_Single: Leaderboard
+    """
+    Farm 100_000_000 hay with a single drone on an 8x8 farm.
+    """
 
-	Maze: Leaderboard
-	"""
-	Farm 9_863_168_gold with multiple drones.
-	"""
+    Maze: Leaderboard
+    """
+    Farm 9_863_168_gold with multiple drones.
+    """
 
-	Maze_Single: Leaderboard
-	"""
-	Farm 616_448 gold with a single drone on an 8x8 farm.
-	"""
+    Maze_Single: Leaderboard
+    """
+    Farm 616_448 gold with a single drone on an 8x8 farm.
+    """
 
-	Pumpkins: Leaderboard
-	"""
-	Farm 200_000_000 pumpkins with multiple drones.
-	"""
+    Pumpkins: Leaderboard
+    """
+    Farm 200_000_000 pumpkins with multiple drones.
+    """
 
-	Pumpkins_Single: Leaderboard
-	"""
-	Farm 10_000_000 pumpkins with a single drone on an 8x8 farm.
-	"""
+    Pumpkins_Single: Leaderboard
+    """
+    Farm 10_000_000 pumpkins with a single drone on an 8x8 farm.
+    """
 
-	Sunflowers: Leaderboard
-	"""
-	Farm 100_000 power with multiple drones.
-	"""
+    Sunflowers: Leaderboard
+    """
+    Farm 100_000 power with multiple drones.
+    """
 
-	Sunflowers_Single: Leaderboard
-	"""
-	Farm 10_000 power with a single drone on an 8x8 farm.
-	"""
+    Sunflowers_Single: Leaderboard
+    """
+    Farm 10_000 power with a single drone on an 8x8 farm.
+    """
 
-	Wood: Leaderboard
-	"""
-	Farm 10_000_000_000 wood with multiple drones.
-	"""
+    Wood: Leaderboard
+    """
+    Farm 10_000_000_000 wood with multiple drones.
+    """
 
-	Wood_Single: Leaderboard
-	"""
-	Farm 500_000_000 wood with a single drone on an 8x8 farm.
-	"""
+    Wood_Single: Leaderboard
+    """
+    Farm 500_000_000 wood with a single drone on an 8x8 farm.
+    """
 
 
 # -------------------------------------------------------------------------------
 class Unlock:
-	"""
-	A member of the Unlocks class
-	"""
-	...
+    """
+    A member of the Unlocks class
+    """
+    ...
 
 
 # --------------------------------------------------
 class Unlocks(_Enum):
-	@staticmethod
-	def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Unlock:
-		return Unlock()
+    @staticmethod
+    def _generate_next_value_(name: string, start: _int, count: _int, last_values: _list[_Any]) -> Unlock:
+        return Unlock()
 
-	Auto_Unlock: Unlock
-	"""
-	Automatically unlock things.
-	"""
+    Auto_Unlock: Unlock
+    """
+    Automatically unlock things.
+    """
 
-	Cactus: Unlock
-	"""
-	Unlock: Cactus!
-	Upgrade: Increases the yield and cost of cactus.
-	"""
+    Cactus: Unlock
+    """
+    Unlock: Cactus!
+    Upgrade: Increases the yield and cost of cactus.
+    """
 
-	Carrots: Unlock
-	"""
-	Unlock: Till the soil and plant carrots.
-	Upgrade: Increases the yield and cost of carrots.
-	"""
+    Carrots: Unlock
+    """
+    Unlock: Till the soil and plant carrots.
+    Upgrade: Increases the yield and cost of carrots.
+    """
 
-	Costs: Unlock
-	"""
-	Allows access to the cost of things.
-	"""
+    Costs: Unlock
+    """
+    Allows access to the cost of things.
+    """
 
-	Debug: Unlock
-	"""
-	Tools to help with debugging programs.
-	"""
+    Debug: Unlock
+    """
+    Tools to help with debugging programs.
+    """
 
-	Debug_2: Unlock
-	"""
-	Functions to temporarily slow down the execution and make the grid smaller.
-	"""
+    Debug_2: Unlock
+    """
+    Functions to temporarily slow down the execution and make the grid smaller.
+    """
 
-	Dictionaries: Unlock
-	"""
-	Get access to dictionaries and sets.
-	"""
+    Dictionaries: Unlock
+    """
+    Get access to dictionaries and sets.
+    """
 
-	Dinosaurs: Unlock
-	"""
-	Unlock: Majestic ancient creatures.
-	Upgrade: Increases the yield and cost of dinosaurs.
-	"""
+    Dinosaurs: Unlock
+    """
+    Unlock: Majestic ancient creatures.
+    Upgrade: Increases the yield and cost of dinosaurs.
+    """
 
-	Expand: Unlock
-	"""
-	Unlock: Expands the farm land and unlocks movement.
-	Upgrade: Expands the farm. This also clears the farm.
-	"""
+    Expand: Unlock
+    """
+    Unlock: Expands the farm land and unlocks movement.
+    Upgrade: Expands the farm. This also clears the farm.
+    """
 
-	Fertilizer: Unlock
-	"""
-	Reduces the remaining growing time of the plant under the drone by 2 seconds.
-	"""
+    Fertilizer: Unlock
+    """
+    Reduces the remaining growing time of the plant under the drone by 2 seconds.
+    """
 
-	Functions: Unlock
-	"""
-	Define your own functions.
-	"""
+    Functions: Unlock
+    """
+    Define your own functions.
+    """
 
-	Grass: Unlock
-	"""
-	Increases the yield of grass.
-	"""
+    Grass: Unlock
+    """
+    Increases the yield of grass.
+    """
 
-	Hats: Unlock
-	"""
-	Unlocks new hat colors for your drone.
-	"""
+    Hats: Unlock
+    """
+    Unlocks new hat colors for your drone.
+    """
 
-	Import: Unlock
-	"""
-	Import code from other files.
-	"""
+    Import: Unlock
+    """
+    Import code from other files.
+    """
 
-	Leaderboard: Unlock
-	"""
-	Join the leaderboard for the fastest time in farming a specific crop or for the fastest reset of the farm.
-	"""
+    Leaderboard: Unlock
+    """
+    Join the leaderboard for the fastest time in farming a specific crop or for the fastest reset of the farm.
+    """
 
-	Lists: Unlock
-	"""
-	Use lists to store lots of values.
-	"""
+    Lists: Unlock
+    """
+    Use lists to store lots of values.
+    """
 
-	Loops: Unlock
-	"""
-	Unlocks a simple while loop.
-	"""
+    Loops: Unlock
+    """
+    Unlocks a simple while loop.
+    """
 
-	Mazes: Unlock
-	"""
-	Unlock: A maze with a treasure in the middle.
-	Upgrade: Increases the gold in treasure chests.
-	"""
+    Mazes: Unlock
+    """
+    Unlock: A maze with a treasure in the middle.
+    Upgrade: Increases the gold in treasure chests.
+    """
 
-	Megafarm: Unlock
-	"""
-	Unlocks multiple drones and drone management functions.
-	"""
+    Megafarm: Unlock
+    """
+    Unlocks multiple drones and drone management functions.
+    """
 
-	Operators: Unlock
-	"""
-	Arithmetic, comparison and logic operators.
-	"""
+    Operators: Unlock
+    """
+    Arithmetic, comparison and logic operators.
+    """
 
-	Plant: Unlock
-	"""
-	Unlocks planting.
-	"""
+    Plant: Unlock
+    """
+    Unlocks planting.
+    """
 
-	Polyculture: Unlock
-	"""
-	Use companion planting to increase the yield.
-	"""
+    Polyculture: Unlock
+    """
+    Use companion planting to increase the yield.
+    """
 
-	Pumpkins: Unlock
-	"""
-	Unlock: Pumpkins!
-	Upgrade: Increases the yield and cost of pumpkins.
-	"""
+    Pumpkins: Unlock
+    """
+    Unlock: Pumpkins!
+    Upgrade: Increases the yield and cost of pumpkins.
+    """
 
-	Senses: Unlock
-	"""
-	The drone can see what's under it and where it is.
-	"""
+    Senses: Unlock
+    """
+    The drone can see what's under it and where it is.
+    """
 
-	Simulation: Unlock
-	"""
-	Unlocks simulation functions for testing and optimization.
-	"""
+    Simulation: Unlock
+    """
+    Unlocks simulation functions for testing and optimization.
+    """
 
-	Speed: Unlock
-	"""
-	Increases the speed of the drone.
-	"""
+    Speed: Unlock
+    """
+    Increases the speed of the drone.
+    """
 
-	Sunflowers: Unlock
-	"""
-	Unlock: Sunflowers and Power.
-	Upgrade: Increases the power gained from sunflowers.
-	"""
+    Sunflowers: Unlock
+    """
+    Unlock: Sunflowers and Power.
+    Upgrade: Increases the power gained from sunflowers.
+    """
 
-	The_Farmers_Remains: Unlock
-	"""
-	Unlocks the special hat 'The Farmers Remains'.
-	"""
+    The_Farmers_Remains: Unlock
+    """
+    Unlocks the special hat 'The Farmers Remains'.
+    """
 
-	Timing: Unlock
-	"""
-	Functions to help measure performance.
-	"""
+    Timing: Unlock
+    """
+    Functions to help measure performance.
+    """
 
-	Top_Hat: Unlock
-	"""
-	Unlocks the fancy Top Hat.
-	"""
+    Top_Hat: Unlock
+    """
+    Unlocks the fancy Top Hat.
+    """
 
-	Trees: Unlock
-	"""
-	Unlocks trees.
-	Upgrade: Increases the yield of bushes and trees.
-	"""
+    Trees: Unlock
+    """
+    Unlocks trees.
+    Upgrade: Increases the yield of bushes and trees.
+    """
 
-	Utilities: Unlock
-	"""
-	Unlocks the `min()`, `max()` and `abs()` functions.
-	"""
+    Utilities: Unlock
+    """
+    Unlocks the `min()`, `max()` and `abs()` functions.
+    """
 
-	Variables: Unlock
-	"""
-	Assign values to variables.
-	"""
+    Variables: Unlock
+    """
+    Assign values to variables.
+    """
 
-	Watering: Unlock
-	"""
-	Water the plants to make them grow faster.
-	"""
+    Watering: Unlock
+    """
+    Water the plants to make them grow faster.
+    """
 
 
 
@@ -1405,153 +1405,153 @@ class Unlocks(_Enum):
 
 # -------------------------------------------------------------------------------
 def harvest() -> _bool:
-	"""
-	Harvests the entity under the drone.
-	If you harvest an entity that can't be harvested, it will be destroyed.
+    """
+    Harvests the entity under the drone.
+    If you harvest an entity that can't be harvested, it will be destroyed.
 
-	returns `True` if an entity was removed, `False` otherwise.
+    returns `True` if an entity was removed, `False` otherwise.
 
-	takes `200` ticks to execute if an entity was removed, `1` tick otherwise.
+    takes `200` ticks to execute if an entity was removed, `1` tick otherwise.
 
-	example usage:
+    example usage:
 
-	```
-	harvest()
-	```
-	"""
-	...
+    ```
+    harvest()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def can_harvest() -> _bool:
-	"""
-	Used to find out if plants are fully grown.
+    """
+    Used to find out if plants are fully grown.
 
-	returns `True` if there is an entity under the drone that is ready to be harvested, `False` otherwise.
+    returns `True` if there is an entity under the drone that is ready to be harvested, `False` otherwise.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if can_harvest():
-		harvest()
-	```
-	"""
-	...
+    ```
+    if can_harvest():
+        harvest()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def plant(entity: Entity) -> _bool:
-	"""
-	Spends the cost of the specified `entity` and plants it under the drone.
-	It fails if you can't afford the plant, the ground type is wrong or there's already a plant there.
+    """
+    Spends the cost of the specified `entity` and plants it under the drone.
+    It fails if you can't afford the plant, the ground type is wrong or there's already a plant there.
 
-	returns `True` if it succeeded, `False` otherwise.
+    returns `True` if it succeeded, `False` otherwise.
 
-	takes `200` ticks to execute if it succeeded, `1` tick otherwise.
+    takes `200` ticks to execute if it succeeded, `1` tick otherwise.
 
-	example usage:
+    example usage:
 
-	```
-	plant(Entities.Bush)
-	```
-	"""
-	...
+    ```
+    plant(Entities.Bush)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def swap(direction: Direction) -> _bool:
-	"""
-	Swaps the entity under the drone with the entity next to the drone in the specified `direction`.
+    """
+    Swaps the entity under the drone with the entity next to the drone in the specified `direction`.
 
-	- Doesn't work on all entities.
-	- Also works if one (or both) of the entities are `None`.
+    - Doesn't work on all entities.
+    - Also works if one (or both) of the entities are `None`.
 
-	returns `True` if it succeeded, `False` otherwise.
+    returns `True` if it succeeded, `False` otherwise.
 
-	takes `200` ticks to execute on success, `1` tick otherwise.
+    takes `200` ticks to execute on success, `1` tick otherwise.
 
-	example usage:
+    example usage:
 
-	```
-	swap(North)
-	```
-	"""
-	...
+    ```
+    swap(North)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def till() -> None:
-	"""
-	Tills the ground under the drone into soil. If it's already soil it will change the ground back to grassland.
+    """
+    Tills the ground under the drone into soil. If it's already soil it will change the ground back to grassland.
 
-	returns `None`
+    returns `None`
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	till()
-	```
-	"""
-	...
+    ```
+    till()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def use_item(item: Item, n: _int = 1) -> _bool:
-	"""
-	Attempts to use the specified `item` `n` times. Can only be used with some items including `Items.Water`, `Items.Fertilizer` and `Items.Weird_Substance`.
+    """
+    Attempts to use the specified `item` `n` times. Can only be used with some items including `Items.Water`, `Items.Fertilizer` and `Items.Weird_Substance`.
 
-	returns `True` if an item was used, `False` if the item can't be used or you don't have enough.
+    returns `True` if an item was used, `False` if the item can't be used or you don't have enough.
 
-	takes `200` ticks to execute if it succeeded, `1` tick otherwise.
+    takes `200` ticks to execute if it succeeded, `1` tick otherwise.
 
-	example usage:
+    example usage:
 
-	```
-	if use_item(Items.Fertilizer):
-		print("Fertilizer used successfully")
-	```
-	"""
-	...
+    ```
+    if use_item(Items.Fertilizer):
+        print("Fertilizer used successfully")
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def clear() -> None:
-	"""
-	Removes everything from the farm, moves the drone back to position `(0,0)` and changes the hat back to the default.
+    """
+    Removes everything from the farm, moves the drone back to position `(0,0)` and changes the hat back to the default.
 
-	returns `None`
+    returns `None`
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	clear()
-	```
-	"""
-	...
+    ```
+    clear()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def change_hat(hat: Hat) -> None:
-	"""
-	Changes the hat of the drone to the specified `hat`.
+    """
+    Changes the hat of the drone to the specified `hat`.
 
-	returns `None`
+    returns `None`
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	change_hat(Hats.Dinosaur_Hat)
-	```
-	"""
-	...
+    ```
+    change_hat(Hats.Dinosaur_Hat)
+    ```
+    """
+    ...
 
 
 
@@ -1562,102 +1562,102 @@ def change_hat(hat: Hat) -> None:
 
 # -------------------------------------------------------------------------------
 def move(direction: Direction) -> _bool:
-	"""
-	Moves the drone into the specified `direction` by one tile.
-	If the drone moves over the edge of the farm it wraps back to the other side of the farm.
+    """
+    Moves the drone into the specified `direction` by one tile.
+    If the drone moves over the edge of the farm it wraps back to the other side of the farm.
 
-	- `East ` = right
-	- `West ` = left
-	- `North` = up
-	- `South` = down
+    - `East ` = right
+    - `West ` = left
+    - `North` = up
+    - `South` = down
 
-	returns `True` if the drone has moved, `False` otherwise.
+    returns `True` if the drone has moved, `False` otherwise.
 
-	takes `200` ticks to execute if the drone has moved, `1` tick otherwise.
+    takes `200` ticks to execute if the drone has moved, `1` tick otherwise.
 
-	example usage:
+    example usage:
 
-	```
-	move(North)
-	```
-	"""
-	...
+    ```
+    move(North)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def can_move(direction: Direction) -> _bool:
-	"""
-	Checks if the drone can move in the specified `direction`.
+    """
+    Checks if the drone can move in the specified `direction`.
 
-	returns `True` if the drone can move, `False` otherwise.
+    returns `True` if the drone can move, `False` otherwise.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if can_move(North):
-	    move(North)
-	```
-	"""
-	...
+    ```
+    if can_move(North):
+        move(North)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_pos_x() -> _int:
-	"""
-	Gets the current x position of the drone.
-	The x position starts at `0` in the `West` and increases in the `East` direction.
+    """
+    Gets the current x position of the drone.
+    The x position starts at `0` in the `West` and increases in the `East` direction.
 
-	returns a number representing the current x coordinate of the drone.
+    returns a number representing the current x coordinate of the drone.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	x, y = get_pos_x(), get_pos_y()
-	```
-	"""
-	...
+    ```
+    x, y = get_pos_x(), get_pos_y()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_pos_y() -> _int:
-	"""
-	Gets the current y position of the drone.
-	The y position starts at `0` in the `South` and increases in the `North` direction.
+    """
+    Gets the current y position of the drone.
+    The y position starts at `0` in the `South` and increases in the `North` direction.
 
-	returns a number representing the current y coordinate of the drone.
+    returns a number representing the current y coordinate of the drone.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	x, y = get_pos_x(), get_pos_y()
-	```
-	"""
-	...
+    ```
+    x, y = get_pos_x(), get_pos_y()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_world_size() -> _int:
-	"""
-	Get the current size of the farm.
+    """
+    Get the current size of the farm.
 
-	returns the side length of the grid in the north to south direction.
+    returns the side length of the grid in the north to south direction.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	for i in range(get_world_size()):
-	    move(North)
-	```
-	"""
-	...
+    ```
+    for i in range(get_world_size()):
+        move(North)
+    ```
+    """
+    ...
 
 
 
@@ -1668,128 +1668,128 @@ def get_world_size() -> _int:
 
 # -------------------------------------------------------------------------------
 def get_entity_type() -> Entity | None:
-	"""
-	Find out what kind of entity is under the drone.
+    """
+    Find out what kind of entity is under the drone.
 
-	returns `None` if the tile is empty, otherwise returns the type of the entity under the drone.
+    returns `None` if the tile is empty, otherwise returns the type of the entity under the drone.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if get_entity_type() == Entities.Grass:
-	    harvest()
-	```
-	"""
-	...
+    ```
+    if get_entity_type() == Entities.Grass:
+        harvest()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_ground_type() -> Ground:
-	"""
-	Find out what kind of ground is under the drone.
+    """
+    Find out what kind of ground is under the drone.
 
-	returns the type of the ground under the drone.
+    returns the type of the ground under the drone.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if get_ground_type() != Grounds.Soil:
-	    till()
-	```
-	"""
-	...
+    ```
+    if get_ground_type() != Grounds.Soil:
+        till()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_water() -> _float:
-	"""
-	Get the current water level under the drone.
+    """
+    Get the current water level under the drone.
 
-	returns the water level under the drone as a number between `0` and `1`.
+    returns the water level under the drone as a number between `0` and `1`.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if get_water() < 0.5:
-	    use_item(Items.Water)
-	```
-	"""
-	...
+    ```
+    if get_water() < 0.5:
+        use_item(Items.Water)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def num_items(item: Item) -> _int | _float:
-	"""
-	Find out how much of `item` you currently have.
+    """
+    Find out how much of `item` you currently have.
 
-	returns the number of `item` currently in your inventory.
-	`Items.Power` may return a number as float
+    returns the number of `item` currently in your inventory.
+    `Items.Power` may return a number as float
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if num_items(Items.Fertilizer) > 0:
-	    use_item(Items.Fertilizer)
-	```
-	"""
-	...
+    ```
+    if num_items(Items.Fertilizer) > 0:
+        use_item(Items.Fertilizer)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_companion() -> _tuple[Entity, _tuple[_int, _int]] | None:
-	"""
-	Get the companion preference of the plant under the drone.
+    """
+    Get the companion preference of the plant under the drone.
 
-	returns a tuple of the form `(companion_type, (companion_x_position, companion_y_position))` or `None` if there is no companion.
+    returns a tuple of the form `(companion_type, (companion_x_position, companion_y_position))` or `None` if there is no companion.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	companion = get_companion()
-	if companion != None:
-	    plant_type, (x, y) = companion
-	    print("Companion:", plant_type, "at", x, ",", y)
-	```
-	"""
-	...
+    ```
+    companion = get_companion()
+    if companion != None:
+        plant_type, (x, y) = companion
+        print("Companion:", plant_type, "at", x, ",", y)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def measure(direction: Direction | None = None) -> _int | _tuple[_int, _int] | None:
-	"""
-	Can measure some values on some entities. The effect of this depends on the entity.
-	Will work anynore inside of a maze and only on a `Entities.Apple`
+    """
+    Can measure some values on some entities. The effect of this depends on the entity.
+    Will work anynore inside of a maze and only on a `Entities.Apple`
 
-	overloads:
-	`measure()`: measures the entity under the drone.
-	`measure(direction)`: measures the neighboring entity in the `direction` of the drone.
+    overloads:
+    `measure()`: measures the entity under the drone.
+    `measure(direction)`: measures the neighboring entity in the `direction` of the drone.
 
-	Sunflower: returns the number of petals.
-	Maze: returns the position of the current treasure from anywhere in the maze.
-	Cactus: returns the size.
-	Dinosaur: returns the number corresponding to the type.
-	All other entities: returns `None`.
+    Sunflower: returns the number of petals.
+    Maze: returns the position of the current treasure from anywhere in the maze.
+    Cactus: returns the size.
+    Dinosaur: returns the number corresponding to the type.
+    All other entities: returns `None`.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	num_petals = measure()
-	treasure_pos = measure()
-	```
-	"""
-	...
+    ```
+    num_petals = measure()
+    treasure_pos = measure()
+    ```
+    """
+    ...
 
 
 
@@ -1808,116 +1808,116 @@ class Drone:
 
 # -------------------------------------------------------------------------------
 def spawn_drone(task: Callable[[], Any], *args: _Any) -> Drone:
-	"""
-	Spawns a new drone in the same position as the drone that ran `spawn_drone(task, *args)`. The new drone then begins executing the specified `task` function. The rest of the arguments are copied and passed into the specified function. After the drone is done, it will disappear automatically.
+    """
+    Spawns a new drone in the same position as the drone that ran `spawn_drone(task, *args)`. The new drone then begins executing the specified `task` function. The rest of the arguments are copied and passed into the specified function. After the drone is done, it will disappear automatically.
 
-	returns a `Drone` object for the new drone or `None` if all drones are already spawned.
+    returns a `Drone` object for the new drone or `None` if all drones are already spawned.
 
-	takes `200` ticks to execute if a drone was spawned, `1` otherwise.
+    takes `200` ticks to execute if a drone was spawned, `1` otherwise.
 
-	example:
-	```
-	def harvest_column(message):
-		for _ in range(get_world_size()):
-			harvest()
-			move(North)
-		print(message)
+    example:
+    ```
+    def harvest_column(message):
+        for _ in range(get_world_size()):
+            harvest()
+            move(North)
+        print(message)
 
-	i = 0
-	while True:
-		if spawn_drone(harvest_column, i):
-			move(East)
-			i = (i + 1) % 10
-	```
-	"""
-	...
+    i = 0
+    while True:
+        if spawn_drone(harvest_column, i):
+            move(East)
+            i = (i + 1) % 10
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def wait_for(drone: Drone) -> Any:
-	"""
-	Waits until the given `drone` terminates.
+    """
+    Waits until the given `drone` terminates.
 
-	returns the return value of the function that the `drone` was running.
+    returns the return value of the function that the `drone` was running.
 
-	takes `1 + remaining task ticks` remaining in the given drone's task function.
-	takes `1` tick to execute if the awaited `drone` is already done.
+    takes `1 + remaining task ticks` remaining in the given drone's task function.
+    takes `1` tick to execute if the awaited `drone` is already done.
 
-	example:
+    example:
 
-	```
-	def get_entity_type_in_direction(dir):
-		move(dir)
-		return get_entity_type()
+    ```
+    def get_entity_type_in_direction(dir):
+        move(dir)
+        return get_entity_type()
 
-	def zero_arg_wrapper():
-		return get_entity_type_in_direction(North)
-	handle = spawn_drone(zero_arg_wrapper)
-	print(wait_for(handle))
-	```
-	"""
-	...
+    def zero_arg_wrapper():
+        return get_entity_type_in_direction(North)
+    handle = spawn_drone(zero_arg_wrapper)
+    print(wait_for(handle))
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def has_finished(drone: Drone) -> _bool:
-	"""
-	Checks if the given 1drone1 has finished.
+    """
+    Checks if the given 1drone1 has finished.
 
-	returns `True` if the drone has finished, `False` otherwise.
+    returns `True` if the drone has finished, `False` otherwise.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example:
+    example:
 
-	```
-	drone = spawn_drone(function)
-	while not has_finished(drone):
-		do_something_else()
-	result = wait_for(drone)
-	```
-	"""
-	...
+    ```
+    drone = spawn_drone(function)
+    while not has_finished(drone):
+        do_something_else()
+    result = wait_for(drone)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def max_drones() -> _int:
-	"""
-	Gets the maximum number of drones available on the farm.
+    """
+    Gets the maximum number of drones available on the farm.
 
-	returns the maximum number of drones that you can have in the farm.
+    returns the maximum number of drones that you can have in the farm.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example:
+    example:
 
-	```
-	while num_drones() < max_drones():
-		spawn_drone("some_file_name")
-		move(East)
-	```
-	"""
-	...
+    ```
+    while num_drones() < max_drones():
+        spawn_drone("some_file_name")
+        move(East)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def num_drones() -> _int:
-	"""
-	Gets the current number of drones running a task on the farm.
+    """
+    Gets the current number of drones running a task on the farm.
 
-	returns the number of drones currently in the farm.
+    returns the number of drones currently in the farm.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example:
+    example:
 
-	```
-	while num_drones() < max_drones():
-		spawn_drone("some_file_name")
-		move(East)
-	```
-	"""
-	...
+    ```
+    while num_drones() < max_drones():
+        spawn_drone("some_file_name")
+        move(East)
+    ```
+    """
+    ...
 
 
 
@@ -1928,141 +1928,141 @@ def num_drones() -> _int:
 
 # -------------------------------------------------------------------------------
 def get_time() -> _float:
-	"""
-	Get the current game time.
+    """
+    Get the current game time.
 
-	returns the time in seconds since the start of the game.
+    returns the time in seconds since the start of the game.
 
-	takes `0` tick to execute.
+    takes `0` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	start = get_time()
-	do_something()
-	time_passed = get_time() - start
-	```
-	"""
-	...
+    ```
+    start = get_time()
+    do_something()
+    time_passed = get_time() - start
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def get_tick_count() -> _int:
-	"""
-	Used to measure the number of ticks performed.
+    """
+    Used to measure the number of ticks performed.
 
-	returns the number of ticks performed since the start of execution.
+    returns the number of ticks performed since the start of execution.
 
-	takes `0` tick to execute.
+    takes `0` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	do_something()
-	print(get_tick_count())
-	```
-	"""
-	...
+    ```
+    do_something()
+    print(get_tick_count())
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def set_execution_speed(speed: _float) -> None:
-	"""
-	Limits the speed at which the program is executed to better see what's happening.
+    """
+    Limits the speed at which the program is executed to better see what's happening.
 
-	- A `speed` of `1` is the speed the drone has without any speed upgrades.
-	- A `speed` of `10` makes the code execute `10` times faster and corresponds to the speed of the drone after `9` speed upgrades.
-	- A `speed` of `0.5` makes the code execute at half of the speed without speed upgrades. This can be useful to see what the code is doing.
+    - A `speed` of `1` is the speed the drone has without any speed upgrades.
+    - A `speed` of `10` makes the code execute `10` times faster and corresponds to the speed of the drone after `9` speed upgrades.
+    - A `speed` of `0.5` makes the code execute at half of the speed without speed upgrades. This can be useful to see what the code is doing.
 
-	If `speed` is faster than the execution can currently go it will just go at max speed.
+    If `speed` is faster than the execution can currently go it will just go at max speed.
 
-	If `speed` is `0` or negative, the speed is changed back to max speed.
-	The effect will also stop when the execution stops.
+    If `speed` is `0` or negative, the speed is changed back to max speed.
+    The effect will also stop when the execution stops.
 
-	returns `None`
+    returns `None`
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	set_execution_speed(1)
-	```
-	"""
-	...
+    ```
+    set_execution_speed(1)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def set_world_size(size: _float) -> None:
-	"""
-	Limits the size of the farm to better see what's happening.
-	Also clears the farm and resets the drone position.
+    """
+    Limits the size of the farm to better see what's happening.
+    Also clears the farm and resets the drone position.
 
-	- Sets the farm to a `size` x `size` grid.
-	- The smallest `size` possible is `3`.
-	- A `size` smaller than `3` will change the grid back to its full size.
-	- The effect will also stop when the execution stops.
+    - Sets the farm to a `size` x `size` grid.
+    - The smallest `size` possible is `3`.
+    - A `size` smaller than `3` will change the grid back to its full size.
+    - The effect will also stop when the execution stops.
 
-	returns `None`
+    returns `None`
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	set_world_size(5)
-	```
-	"""
-	...
+    ```
+    set_world_size(5)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 type SimulateUnlocks = _dict[Unlock, _int] | _tuple[_tuple[Unlock, _int]] | _list[_tuple[Unlock, _int]] | _tuple[Unlock] | _list[Unlock] | Unlocks
 
 def simulate(
-		filename: string,
-		sim_unlocks: SimulateUnlocks,
-		sim_items: _dict[Item, _float],
-		sim_globals: _dict[string, Any],
-		seed: _float, speedup: _float
-	) -> _float:
-	"""
-	Starts a simulation for the leaderboard using the specified `file_name` as a starting point.
+        filename: string,
+        sim_unlocks: SimulateUnlocks,
+        sim_items: _dict[Item, _float],
+        sim_globals: _dict[string, Any],
+        seed: _float, speedup: _float
+    ) -> _float:
+    """
+    Starts a simulation for the leaderboard using the specified `file_name` as a starting point.
 
-	`sim_unlocks`: A sequence containing the starting unlocks. These unlocks can be one of these:
+    `sim_unlocks`: A sequence containing the starting unlocks. These unlocks can be one of these:
 
-	- `dict[Unlock, int]` - Example: `{Unlocks.Expand: 2, Unlocks.Cactus: 1}`
-	- `tuple[tuple[Unlock, int]]` - Example: `((Unlocks.Expand, 2), (Unlocks.Cactus, 1))`
-	- `list[tuple[Unlock, int]]` - Example: `[(Unlocks.Expand, 2), (Unlocks.Cactus, 1)]`
-	- `tuple[Unlock]` - Captures your current unlock level of specific unlocks from your main farm. Example: `(Unlocks.Expand, Unlocks.Cactus)`
-	- `list[Unlock]` - Captures your current unlock level of specific unlocks from your main farm. Example: `[Unlocks.Expand, Unlocks.Cactus]`
-	- `Unlocks` - Captures all of your current unlock levels from your main farm.
+    - `dict[Unlock, int]` - Example: `{Unlocks.Expand: 2, Unlocks.Cactus: 1}`
+    - `tuple[tuple[Unlock, int]]` - Example: `((Unlocks.Expand, 2), (Unlocks.Cactus, 1))`
+    - `list[tuple[Unlock, int]]` - Example: `[(Unlocks.Expand, 2), (Unlocks.Cactus, 1)]`
+    - `tuple[Unlock]` - Captures your current unlock level of specific unlocks from your main farm. Example: `(Unlocks.Expand, Unlocks.Cactus)`
+    - `list[Unlock]` - Captures your current unlock level of specific unlocks from your main farm. Example: `[Unlocks.Expand, Unlocks.Cactus]`
+    - `Unlocks` - Captures all of your current unlock levels from your main farm.
 
-	`sim_items`: A dict mapping items to amounts. The simulation starts with these items.
+    `sim_items`: A dict mapping items to amounts. The simulation starts with these items.
 
-	`sim_globals`: A dict mapping variable names to values. The simulation starts with these variables in the global scope. Make sure any variables assigned in here are not assigned in the simulation code as that will override the vales from this dict.
+    `sim_globals`: A dict mapping variable names to values. The simulation starts with these variables in the global scope. Make sure any variables assigned in here are not assigned in the simulation code as that will override the vales from this dict.
 
-	`seed`: The random seed of the simulation. Must be a positive integer.
+    `seed`: The random seed of the simulation. Must be a positive integer.
 
-	`speedup`: The starting speedup. The simulation may not reach the stated `speedup` value if it cannot properly speedup computation. Common causes for this include use of multiple drones or eating up too many ticks in a loop per iteration (for example a wait loop using pass).
+    `speedup`: The starting speedup. The simulation may not reach the stated `speedup` value if it cannot properly speedup computation. Common causes for this include use of multiple drones or eating up too many ticks in a loop per iteration (for example a wait loop using pass).
 
-	returns the time it took to run the simulation.
+    returns the time it took to run the simulation.
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	filename = "f1"
-	sim_unlocks = Unlocks
-	sim_items = {Items.Carrot : 10000, Items.Hay : 50}
-	sim_globals = {"a" : 13}
-	seed = 0
-	speedup = 64
-	run_time = simulate(filename, sim_unlocks, sim_items, sim_globals, seed, speedup)
-	```
-	"""
-	...
+    ```
+    filename = "f1"
+    sim_unlocks = Unlocks
+    sim_items = {Items.Carrot : 10000, Items.Hay : 50}
+    sim_globals = {"a" : 13}
+    seed = 0
+    speedup = 64
+    run_time = simulate(filename, sim_unlocks, sim_items, sim_globals, seed, speedup)
+    ```
+    """
+    ...
 
 
 
@@ -2073,67 +2073,67 @@ def simulate(
 
 # -------------------------------------------------------------------------------
 def get_cost(thing: Entity | Entities | Item | Items | Unlock | Unlocks, level: _int | None = None) -> _dict[Item, _int] | None:
-	"""
-	Gets the cost of a `thing`
+    """
+    Gets the cost of a `thing`
 
-	If `thing` is an entity: get the cost of planting it.
-	If `thing` is an unlock: get the cost of unlocking it at the specified level.
+    If `thing` is an entity: get the cost of planting it.
+    If `thing` is an unlock: get the cost of unlocking it at the specified level.
 
-	- returns a dictionary with items as keys and numbers as values. Each item is mapped to how much of it is needed.
-	- returns `None` for unlocks that are already unlocked (when no level specified).
-	- The optional `level` parameter specifies the upgrade level for unlocks.
+    - returns a dictionary with items as keys and numbers as values. Each item is mapped to how much of it is needed.
+    - returns `None` for unlocks that are already unlocked (when no level specified).
+    - The optional `level` parameter specifies the upgrade level for unlocks.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	cost = get_cost(Unlocks.Carrots)
-	for item in cost:
-	    if num_items(item) < cost[item]:
-	        print('not enough items to unlock carrots')
-	```
-	"""
-	...
+    ```
+    cost = get_cost(Unlocks.Carrots)
+    for item in cost:
+        if num_items(item) < cost[item]:
+            print('not enough items to unlock carrots')
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def unlock(unlock: Unlock | Unlocks) -> _bool:
-	"""
-	Has exactly the same effect as clicking the button corresponding to `unlock` in the research tree.
+    """
+    Has exactly the same effect as clicking the button corresponding to `unlock` in the research tree.
 
-	returns `True` if the unlock was successful, `False` otherwise.
+    returns `True` if the unlock was successful, `False` otherwise.
 
-	takes `200` ticks to execute if it succeeded, `1` tick otherwise.
+    takes `200` ticks to execute if it succeeded, `1` tick otherwise.
 
-	example usage:
+    example usage:
 
-	```
-	unlock(Unlocks.Carrots)
-	```
-	"""
-	...
+    ```
+    unlock(Unlocks.Carrots)
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def num_unlocked(thing: Enums) -> _int:
-	"""
-	Used to check if an unlock, entity, ground, item or hat is already unlocked.
+    """
+    Used to check if an unlock, entity, ground, item or hat is already unlocked.
 
-	returns `1` plus the number of times `thing` has been upgraded if `thing` is upgradable. Otherwise returns `1` if `thing` is unlocked, `0` otherwise.
+    returns `1` plus the number of times `thing` has been upgraded if `thing` is upgradable. Otherwise returns `1` if `thing` is unlocked, `0` otherwise.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	if num_unlocked(Unlocks.Carrots) > 0:
-	    plant(Entities.Carrot)
-	else:
-	    print("Carrots not unlocked yet")
-	```
-	"""
-	...
+    ```
+    if num_unlocked(Unlocks.Carrots) > 0:
+        plant(Entities.Carrot)
+    else:
+        print("Carrots not unlocked yet")
+    ```
+    """
+    ...
 
 
 
@@ -2144,75 +2144,75 @@ def num_unlocked(thing: Enums) -> _int:
 
 # -------------------------------------------------------------------------------
 def random() -> _float:
-	"""
-	Samples a random number between 0 (inclusive) and 1 (exclusive).
+    """
+    Samples a random number between 0 (inclusive) and 1 (exclusive).
 
-	returns the random number.
+    returns the random number.
 
-	takes `1` ticks to execute.
+    takes `1` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	def random_elem(list):
-	    index = random() * len(list) // 1
-	    return list[index]
-	```
-	"""
-	...
+    ```
+    def random_elem(list):
+        index = random() * len(list) // 1
+        return list[index]
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def min(*args: Any) -> Any:
-	"""
-	Gets the minimum of a sequence of elements or several passed arguments.
-	Can be used on numbers and strings.
+    """
+    Gets the minimum of a sequence of elements or several passed arguments.
+    Can be used on numbers and strings.
 
-	`min(a,b,c)`: Returns the minimum of `a`, `b` and `c`.
-	`min(sequence)`: Returns the minimum of all values in a sequence.
+    `min(a,b,c)`: Returns the minimum of `a`, `b` and `c`.
+    `min(sequence)`: Returns the minimum of all values in a sequence.
 
-	returns the minimum value from the arguments.
-	"""
-	...
+    returns the minimum value from the arguments.
+    """
+    ...
 
 
 # --------------------------------------------------
 def max(*args: Any) -> Any:
-	"""
-	Gets the maximum of a sequence of elements or several passed arguments.
-	Can be used on numbers and strings.
+    """
+    Gets the maximum of a sequence of elements or several passed arguments.
+    Can be used on numbers and strings.
 
-	`max(a,b,c)`: Returns the maximum of `a`, `b` and `c`.
-	`max(sequence)`: Returns the maximum of all values in a sequence.
+    `max(a,b,c)`: Returns the maximum of `a`, `b` and `c`.
+    `max(sequence)`: Returns the maximum of all values in a sequence.
 
-	returns the maximum value from the arguments.
-	"""
-	...
+    returns the maximum value from the arguments.
+    """
+    ...
 
 
 # --------------------------------------------------
 def abs(x: _float) -> _float:
-	"""
-	Returns the absolute value of a number.
+    """
+    Returns the absolute value of a number.
 
-	returns the absolute value of x.
+    returns the absolute value of x.
 
-	takes `1` tick to execute.
+    takes `1` tick to execute.
 
-	example usage:
+    example usage:
 
-	```
-	positive = abs(-5)
-	print(positive)
-	```
+    ```
+    positive = abs(-5)
+    print(positive)
+    ```
 
-	Output:
+    Output:
 
-	```
-	5
-	```
-	"""
-	...
+    ```
+    5
+    ```
+    """
+    ...
 
 
 
@@ -2223,39 +2223,39 @@ def abs(x: _float) -> _float:
 
 # -------------------------------------------------------------------------------
 def print(*something: _Any) -> None:
-	"""
-	Prints `something` into the air above the drone using smoke. This action is not affected by speed upgrades.
-	Multiple values can be printed at once.
+    """
+    Prints `something` into the air above the drone using smoke. This action is not affected by speed upgrades.
+    Multiple values can be printed at once.
 
-	returns `None`
+    returns `None`
 
-	takes 1s to execute.
+    takes 1s to execute.
 
-	example usage:
+    example usage:
 
-	```
-	print('ground:', get_ground_type())
-	```
-	"""
-	...
+    ```
+    print('ground:', get_ground_type())
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def quick_print(*something: _Any) -> None:
-	"""
-	Prints a value just like `print()` but it doesn't stop to write it into the air so it can only be found on the output page.
+    """
+    Prints a value just like `print()` but it doesn't stop to write it into the air so it can only be found on the output page.
 
-	returns `None`
+    returns `None`
 
-	takes `0` ticks to execute.
+    takes `0` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	quick_print('hi mom')
-	```
-	"""
-	...
+    ```
+    quick_print('hi mom')
+    ```
+    """
+    ...
 
 
 
@@ -2266,56 +2266,56 @@ def quick_print(*something: _Any) -> None:
 
 # -------------------------------------------------------------------------------
 def do_a_flip() -> None:
-	"""
-	Makes the drone do a flip! This action is not affected by speed upgrades.
+    """
+    Makes the drone do a flip! This action is not affected by speed upgrades.
 
-	returns `None`
+    returns `None`
 
-	takes 1s to execute.
+    takes 1s to execute.
 
-	example usage:
+    example usage:
 
-	```
-	while True:
-		do_a_flip()
-	```
-	"""
-	...
+    ```
+    while True:
+        do_a_flip()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def pet_the_piggy() -> None:
-	"""
-	Pets the piggy! This action is not affected by speed upgrades.
+    """
+    Pets the piggy! This action is not affected by speed upgrades.
 
-	returns `None`
+    returns `None`
 
-	takes 1s to execute.
+    takes 1s to execute.
 
-	example usage:
+    example usage:
 
-	```
-	while True:
-		pet_the_piggy()
-	```
-	"""
-	...
+    ```
+    while True:
+        pet_the_piggy()
+    ```
+    """
+    ...
 
 
 # --------------------------------------------------
 def leaderboard_run(leaderboard: Leaderboard, file_name: string, speedup: _float) -> None:
-	"""
-	Starts a timed run for the `leaderboard` using the specified `file_name` as a starting point.
-	`speedup` sets the starting speedup.
+    """
+    Starts a timed run for the `leaderboard` using the specified `file_name` as a starting point.
+    `speedup` sets the starting speedup.
 
-	returns `None`
+    returns `None`
 
-	takes `200` ticks to execute.
+    takes `200` ticks to execute.
 
-	example usage:
+    example usage:
 
-	```
-	leaderboard_run(Leaderboards.Fastest_Reset, "full_run", 256)
-	```
-	"""
-	...
+    ```
+    leaderboard_run(Leaderboards.Fastest_Reset, "full_run", 256)
+    ```
+    """
+    ...
