@@ -169,39 +169,49 @@ def do_harvest_cactus():
 	change_hat(Hats.Pumpkin_Hat)
 	harvest()
 	return
-	
-def schedule():
-	global field_layout_in_progress
-	global schedule_harvest_type
-	field_layout = []
-	schedule_harvest_type = HARVEST_NONE
-	if not field_layout_in_progress:
-		if not warehouse.is_basics_min():
-			field_layout = layout_planner.layout_basic_flex_demands()
-			schedule_harvest_type = HARVEST_SIMPLE
-			return field_layout
-		if not warehouse.is_energy_available(): 
-			field_layout = layout_planner.layout_sunflower()
-			field_layout_in_progress = True
-			schedule_harvest_type = HARVEST_SUNFLOWER
-			return field_layout
-		if num_items(Items.Pumpkin) < 520000:
-			field_layout = layout_planner.layout_all_pumpkin()
-			field_layout_in_progress = True
-			schedule_harvest_type = HARVEST_ALL_PUMPKINS
 
-		# if warehouse.is_basics_full() and num_items(Items.Pumpkin) < 100000:
-		# 	field_layout = layout_planner.layout_all_pumpkin()
-		# 	field_layout_in_progress = True
-		# 	schedule_harvest_type = HARVEST_ALL_PUMPKINS
-		# elif num_items(Items.Cactus) < 10000:
-		# 	field_layout = layout_planner.layout_cactus()
-		# 	schedule_harvest_type = HARVEST_CACTUS
-		# else:
-		# 	field_layout = layout_planner.layout_basic_flex_demands()
-		# 	schedule_harvest_type = HARVEST_SIMPLE
-	return field_layout
+
+SCHEDULE_NOTHING = 0
+SCHEDULE_BASIC_FLEX = 1
+SCHEDULE_SUNFLOWER = 2
+SCHEDULE_PUMPKIN = 3
+SCHEDULE_CACTUS = 4
+SCHEDULE_MAZE = 5
+SCHEDULE_BONES = 6
+SCHEDULE_WIRED_SUBSTANCE = 7
+
 	
+def schedule(crop_rotation):
+	for crop in crop_rotation:
+		if crop == SCHEDULE_BASIC_FLEX:
+			field_layout = layout_planner.layout_basic_flex_demands()
+			apply_layout(field_layout)
+			do_harvest()
+		elif crop == SCHEDULE_SUNFLOWER: 
+			field_layout = layout_planner.layout_sunflower()
+			apply_layout(field_layout)
+			do_harvest_sunflower_mix()
+		elif crop == SCHEDULE_PUMPKIN:
+			field_layout = layout_planner.layout_all_pumpkin()
+			apply_layout(field_layout)
+			do_harvest_pumpkins()
+		elif crop == SCHEDULE_MAZE:
+			make_labyrinth(10)
+			maze.search_treasure_turn_right()
+			# maze.search_treasure_back_tracking()
+			move_to_start()
+		elif crop == SCHEDULE_CACTUS:
+			field_layout = layout_planner.layout_cactus()
+			apply_layout(field_layout)
+			do_harvest_cactus()
+			pass
+		elif crop == SCHEDULE_BONES:
+			pass
+		elif crop == SCHEDULE_WIRED_SUBSTANCE:
+			field_layout = layout_planner.layout_all_grass()
+			apply_layout(field_layout)
+			fertalize()
+			do_harvest()
 
 def apply_layout(field_layout):
 	for col in range(get_world_size()):
@@ -242,48 +252,10 @@ def is_corner():
 
 move_to_start()
 
-
+crop_rotation_plan = [SCHEDULE_WIRED_SUBSTANCE, SCHEDULE_SUNFLOWER, SCHEDULE_CACTUS, SCHEDULE_MAZE, SCHEDULE_PUMPKIN]
 while True:
 	
-	demand = warehouse.get_demand()
-	active_demand = Entities.Pumpkin
+	# demand = warehouse.get_demand()
+	# active_demand = Entities.Pumpkin
 
-
-
-	# while True:
-	# 	if get_entity_type() == Entities.Treasure:
-	# 		harvest()
-	# 		break
-	# 	else:
-	# 		tx, ty = measure()
-
-	# apply_layout(layout_planner.layout_cactus())
-	# do_harvest_cactus()
-	# fertalize()
-	# do_harvest()
-	
-	field_layout = schedule()
-	if len(field_layout) > 0:
-		apply_layout(field_layout)
-		# schedule_harvest_type = HAVEST_ALL_PUMPKINS
-		if schedule_harvest_type == HARVEST_SIMPLE:
-			do_harvest()
-		elif schedule_harvest_type == HARVEST_ALL_PUMPKINS:
-			do_harvest_pumpkins()
-		elif schedule_harvest_type == HARVEST_SUNFLOWER:
-			do_harvest_sunflower_mix()
-		elif schedule_harvest_type == HARVEST_CACTUS:
-			do_harvest_cactus()
-
-	if len(field_layout) == 0:
-		if num_items(Items.Weird_Substance) < 1000:
-			fertalize()
-			do_harvest()
-		make_labyrinth(10)
-		maze.search_treasure_turn_right()
-		# maze.search_treasure_back_tracking()
-		move_to_start()
-
-	# field_layout = layout_planner.layout_sunflower()
-	# apply_layout(field_layout)
-	# do_harvest_sunflower_mix(3)
+	schedule(crop_rotation_plan)

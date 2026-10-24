@@ -1,6 +1,13 @@
 import field
 import warehouse
 
+def layout_all_grass():
+	field_list = []
+	for x in range(field.get_n_fields()):
+		field_list.append(Entities.Grass)
+	return field_list
+
+
 def layout_all_pumpkin():
 	field_list = []
 	for x in range(field.get_n_fields()):
@@ -23,6 +30,7 @@ def layout_pumpkin_sizeable(pumpkin_size):
 				else:
 					field_list.append(Entities.Grass)
 	return field_list
+
 
 def layout_wierd_substance():
 	n_fields = field.get_n_fields()
