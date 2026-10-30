@@ -54,6 +54,11 @@ def move_n(nx, ny):
 	for iy in range(ny):
 		move(y_dir)
 
+def move_to(x, y):
+	my_x = get_pos_x()
+	my_y = get_pos_y()
+	move_n(my_x - x, my_y - y)
+
 
 def do_harvest_sunflower_mix():
 	global field_layout_in_progress
@@ -170,6 +175,62 @@ def do_harvest_cactus():
 	harvest()
 	return
 
+def do_harvest_bones():
+	next_x = 0
+	next_y = 0
+	move_to_start()
+	my_x = get_pos_x()
+	my_y = get_pos_y()
+	change_hat(Hats.Dinosaur_Hat)
+	#
+	move_dir = East
+	move_count = 0
+	do_catch_apple = False
+	do_catch_count = 0
+	num_apple_harvested = 0
+	world_size = get_world_size()
+	while True:
+		if get_entity_type() == Entities.Apple:
+			next_x, next_y = measure()
+			num_apple_harvested += 1
+		if num_apple_harvested == 16:
+			change_hat(Hats.Straw_Hat)
+			return
+		# Catch loop
+		if next_x != 0 or next_x != world_size or next_y != 0 or next_y != world_size:
+			if move_dir == East and do_catch_apple == False and (my_x == next_x or my_x == next_x - 1):
+				do_catch_apple = True
+				move_dir = North
+				do_catch_count = 0 
+			if do_catch_apple == True and do_catch_count == world_size - 2:
+				move_dir = East
+			elif do_catch_apple == True and do_catch_count == world_size - 1:
+				move_dir = South
+			elif do_catch_apple == True and do_catch_count == 2 * world_size - 1:
+				move_dir = East
+			elif do_catch_apple == True and do_catch_count == 2 * world_size:
+				do_catch_apple = False
+		# Go North
+		if move_dir == East and my_x == world_size - 1:
+			move_dir = North
+		# Go West
+		if move_dir == North and my_y == world_size - 1:
+			move_dir = West
+		# Go South
+		if move_dir == West and my_x == 0:
+			move_dir = South
+		# Go East	
+		if move_dir == South and my_y == 0:
+			move_dir = East
+
+		could_move = move(move_dir)
+		move_count += 1
+		do_catch_count += 1
+		my_x = get_pos_x()
+		my_y = get_pos_y()
+		# move_to(next_x, next_y)
+
+	
 
 SCHEDULE_NOTHING = 0
 SCHEDULE_BASIC_FLEX = 1
@@ -206,7 +267,7 @@ def schedule(crop_rotation):
 			do_harvest_cactus()
 			pass
 		elif crop == SCHEDULE_BONES:
-			pass
+			do_harvest_bones()
 		elif crop == SCHEDULE_WIRED_SUBSTANCE:
 			field_layout = layout_planner.layout_all_grass()
 			apply_layout(field_layout)
@@ -248,11 +309,11 @@ def count_movements():
 def is_corner():
 	return count_movements() > 2
 
-
-
+change_hat(Hats.Straw_Hat)
 move_to_start()
 
-crop_rotation_plan = [SCHEDULE_WIRED_SUBSTANCE, SCHEDULE_SUNFLOWER, SCHEDULE_CACTUS, SCHEDULE_MAZE, SCHEDULE_PUMPKIN]
+# crop_rotation_plan = [SCHEDULE_WIRED_SUBSTANCE, SCHEDULE_SUNFLOWER, SCHEDULE_CACTUS, SCHEDULE_MAZE, SCHEDULE_PUMPKIN]
+crop_rotation_plan = [SCHEDULE_BONES]
 while True:
 	
 	# demand = warehouse.get_demand()
