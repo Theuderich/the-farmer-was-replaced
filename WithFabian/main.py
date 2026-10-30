@@ -193,11 +193,11 @@ def do_harvest_bones():
 		if get_entity_type() == Entities.Apple:
 			next_x, next_y = measure()
 			num_apple_harvested += 1
-		if num_apple_harvested == 16:
+		if num_apple_harvested == 64:
 			change_hat(Hats.Straw_Hat)
 			return
 		# Catch loop
-		if next_x != 0 or next_x != world_size or next_y != 0 or next_y != world_size:
+		if next_x != 0 and next_x != world_size - 1 and next_y != 0 and next_y != world_size - 1:
 			if move_dir == East and do_catch_apple == False and (my_x == next_x or my_x == next_x - 1):
 				do_catch_apple = True
 				move_dir = North
@@ -213,6 +213,7 @@ def do_harvest_bones():
 		# Go North
 		if move_dir == East and my_x == world_size - 1:
 			move_dir = North
+			do_catch_apple = False
 		# Go West
 		if move_dir == North and my_y == world_size - 1:
 			move_dir = West
@@ -224,6 +225,9 @@ def do_harvest_bones():
 			move_dir = East
 
 		could_move = move(move_dir)
+		if not could_move:
+			change_hat(Hats.Straw_Hat)
+			return
 		move_count += 1
 		do_catch_count += 1
 		my_x = get_pos_x()
