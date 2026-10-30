@@ -189,16 +189,17 @@ def do_harvest_bones():
 	do_catch_count = 0
 	num_apple_harvested = 0
 	world_size = get_world_size()
+	world_perimeter = world_size * 4 - 4
 	while True:
 		if get_entity_type() == Entities.Apple:
 			next_x, next_y = measure()
 			num_apple_harvested += 1
-		if num_apple_harvested == 64:
-			change_hat(Hats.Straw_Hat)
-			return
-		# Catch loop
-		if next_x != 0 and next_x != world_size - 1 and next_y != 0 and next_y != world_size - 1:
-			if move_dir == East and do_catch_apple == False and (my_x == next_x or my_x == next_x - 1):
+		# Extra loop
+		length_plus_buffer = num_apple_harvested + world_perimeter / 2 
+		upper_x_limit = length_plus_buffer // world_perimeter
+		upper_x_limit *= 2
+		if my_x > 0 and my_x < upper_x_limit:
+			if move_dir == East and do_catch_apple == False:
 				do_catch_apple = True
 				move_dir = North
 				do_catch_count = 0 
@@ -206,10 +207,24 @@ def do_harvest_bones():
 				move_dir = East
 			elif do_catch_apple == True and do_catch_count == world_size - 1:
 				move_dir = South
-			elif do_catch_apple == True and do_catch_count == 2 * world_size - 1:
+			elif do_catch_apple == True and do_catch_count == 2 * world_size - 3:
 				move_dir = East
-			elif do_catch_apple == True and do_catch_count == 2 * world_size:
 				do_catch_apple = False
+
+		# Catch loop
+		if next_x != 0 and next_x != world_size - 1 and next_y != 0 and next_y != world_size - 1:
+			if move_dir == East and do_catch_apple == False and my_x < world_size - 2 and (my_x == next_x or my_x == next_x - 1):
+				do_catch_apple = True
+				move_dir = North
+				do_catch_count = 0 
+			elif do_catch_apple == True and do_catch_count == world_size - 2:
+				move_dir = East
+			elif do_catch_apple == True and do_catch_count == world_size - 1:
+				move_dir = South
+			elif do_catch_apple == True and do_catch_count == 2 * world_size - 3:
+				move_dir = East
+				do_catch_apple = False
+
 		# Go North
 		if move_dir == East and my_x == world_size - 1:
 			move_dir = North
